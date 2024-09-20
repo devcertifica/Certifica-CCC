@@ -1,19 +1,26 @@
 import { SearchIcon } from "@/components/icons/icons";
-import { FarmListData } from "@/constants/data";
+import { FarmDataType, farmData } from "@/constants/data";
 import { Link } from "expo-router";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomePage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const [farms, setFarms] = useState(farmData);
+  const [filterFarm, setFilterFarm] = useState<FarmDataType[]>(farmData);
 
-  const [farms, setFarms] = useState(FarmListData);
-
-  const handleSearch = () => {
-    console.log("Result => " + searchValue);
-    setSearchValue("");
+  const handleSearch = (query: string) => {
+    setSearchValue(query);
+    if (!query) {
+      setFilterFarm(farmData);
+      return;
+    }
+    const results = farms.filter((farm) => {
+      return farm.name.toLowerCase().includes(query.toLowerCase());
+    });
+    setFilterFarm(results);
   };
 
   return (
@@ -27,22 +34,24 @@ const HomePage = () => {
             placeholder="Search Farm"
             style={styles.searchInput}
             value={searchValue}
-            onChangeText={setSearchValue}
-            onSubmitEditing={handleSearch}
+            onChangeText={handleSearch}
+            // onSubmitEditing={(event) => {
+            //   handleSearch(event.nativeEvent.text);
+            // }}
           />
           <View style={styles.searchIcon}>
-            <Pressable onPress={handleSearch}>
+            <Pressable onPress={() => handleSearch(searchValue)}>
               <SearchIcon />
             </Pressable>
           </View>
         </View>
       </View>
 
-      {/*  */}
+      {/* SearchList */}
       <View style={searchResultStyles.container}>
         <FlatList
           style={searchResultStyles.searchResultWrapper}
-          data={farms}
+          data={filterFarm}
           renderItem={({ item }) => (
             <Link href={`/${item.name}`} style={searchResultStyles.flatTile}>
               <View style={searchResultStyles.flatTile}>
@@ -90,6 +99,7 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 24,
+    // @ts-ignore
     outlineStyle: "none",
   },
 });

@@ -1,87 +1,29 @@
-export const FarmListData = [
-  {
-    name: "Farm1",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    name: "Farm2",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae recusandae officia eaque minus fuga veritatis modi, laborum ad corporis quisquam!",
-  },
-  {
-    name: "Farm3",
-    desc: "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.",
-  },
-  {
-    name: "Farm4",
-    desc: "Repellendus similique earum ad optio. Quia assumenda ipsum deleniti.",
-  },
-  {
-    name: "Farm5",
-    desc: "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur.",
-  },
-  {
-    name: "Farm6",
-    desc: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-  },
-  {
-    name: "Farm7",
-    desc: "Illum quibusdam expedita alias iure dolore repellendus recusandae voluptas accusantium.",
-  },
-  {
-    name: "Farm8",
-    desc: "Repellendus similique earum ad optio. Quia assumenda ipsum deleniti.",
-  },
-  {
-    name: "Farm9",
-    desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    name: "Farm10",
-    desc: "Repellendus similique earum ad optio. Quia assumenda ipsum deleniti.",
-  },
-  {
-    name: "Farm11",
-    desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  },
-  {
-    name: "Farm12",
-    desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  },
-  {
-    name: "Farm13",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    name: "Farm14",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae recusandae officia eaque minus fuga veritatis modi, laborum ad corporis quisquam!",
-  },
-  {
-    name: "Farm15",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
+export type FarmDataType = {
+  id: number;
+  name: string;
+  location: string;
+  type: string;
+};
 
+export const farmData: FarmDataType[] = [
+  { id: 1, name: "Sunny Farm", location: "California", type: "Organic" },
+  { id: 2, name: "Green Valley", location: "Texas", type: "Dairy" },
+  { id: 3, name: "Happy Farm", location: "New York", type: "Poultry" },
+  { id: 4, name: "Blue Sky Ranch", location: "Florida", type: "Cattle" },
+  { id: 5, name: "Riverbend Farm", location: "Oregon", type: "Fruit" },
   {
-    name: "Farm16",
-    desc: "Repellendus similique earum ad optio. Quia assumenda ipsum deleniti.",
+    id: 6,
+    name: "Mountain View Farm",
+    location: "Colorado",
+    type: "Grape",
   },
-  {
-    name: "Farm17",
-    desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  },
-  {
-    name: "Farm18",
-    desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-  },
-  {
-    name: "Farm19",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
-  {
-    name: "Farm20",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae recusandae officia eaque minus fuga veritatis modi, laborum ad corporis quisquam!",
-  },
-  {
-    name: "Farm21",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-  },
+  { id: 7, name: "Sunny Meadow", location: "California", type: "Herbs" },
+  { id: 8, name: "Golden Harvest", location: "Nebraska", type: "Grain" },
+  { id: 9, name: "Green Acres", location: "Kentucky", type: "Poultry" },
+  { id: 10, name: "Prairie Farm", location: "Kansas", type: "Grain" },
+  { id: 11, name: "Happy Harvest", location: "Georgia", type: "Vegetable" },
+  { id: 12, name: "Golden Valley", location: "California", type: "Dairy" },
+  { id: 13, name: "Sunset Farm", location: "Texas", type: "Cattle" },
+  { id: 14, name: "Silver Creek Farm", location: "Idaho", type: "Dairy" },
+  { id: 15, name: "Maple Leaf Farm", location: "Vermont", type: "Maple Syrup" },
 ];
