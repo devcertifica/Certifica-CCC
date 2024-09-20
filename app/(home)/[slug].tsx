@@ -15,7 +15,8 @@ const FarmDetailsPage = () => {
   const { slug } = route.params as RouteParams;
 
   useEffect(() => {
-    navigation.setOptions({ headerTitle: slug });
+    const decodedSlug = decodeURIComponent(slug);
+    navigation.setOptions({ headerTitle: decodedSlug });
   }, []);
 
   return (
