@@ -3,7 +3,7 @@ import ButtonsGroup from "@/components/ButtonsGroup/ButtonsGroup";
 import React from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import FoeEditor from "./foe-editor";
+import FoeEditor from "./lde-editor";
 
 const EditorScreen = () => {
   return (

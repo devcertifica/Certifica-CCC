@@ -2,9 +2,8 @@ import { SharedValue } from "react-native-reanimated";
 
 export type TItem = {
   id: number;
-  title: string;
-  singer: string;
-  imageSrc: string;
+  type: "text" | "foto" | "audio";
+  content: string; // Url for Image or Audio, Description for text
 };
 
 export type TListItem = {
@@ -22,3 +21,8 @@ export type TSongPositions = {
 };
 
 export type NullableNumber = null | number;
+
+export type TComponentItem = {
+  type: "text" | "foto" | "audio";
+  node?: React.ReactNode;
+};

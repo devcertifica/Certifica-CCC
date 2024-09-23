@@ -52,6 +52,7 @@ const HomePage = () => {
         <FlatList
           style={searchResultStyles.searchResultWrapper}
           data={filterFarm}
+          contentContainerStyle={{ rowGap: 10 }}
           renderItem={({ item }) => (
             <Link href={`/${item.name}`} style={searchResultStyles.flatTile}>
               <View style={searchResultStyles.flatTile}>
@@ -119,8 +120,7 @@ const searchResultStyles = StyleSheet.create({
   },
   flatTile: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginVertical: 5,
+    paddingVertical: 8,
     // shadowColor: "#171717",
     // shadowOffset: { width: 1, height: 1 },
     // shadowOpacity: 0.1,

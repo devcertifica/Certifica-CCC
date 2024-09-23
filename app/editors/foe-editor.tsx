@@ -1,41 +1,14 @@
 import AnimatedList from "@/components/AnimatedList";
 import ButtonsGroup from "@/components/ButtonsGroup/ButtonsGroup";
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
-const FoeEditor = () => {
-  const handleAddText = () => {
-    console.log("Handle TextInput");
-  };
-
-  const handleAddAudio = () => {
-    console.log("Handle Audio");
-  };
-
-  const handleAddFoto = () => {
-    console.log("Handle Photo");
-  };
-
-  const handleAddSave = () => {
-    console.log("Hanlde Save");
-  };
-
-  const handleCancel = () => {
-    console.log("Handle Cancel");
-  };
-
+const LdeEditor = () => {
   return (
-    <View style={{ height: "100%" }}>
-      <AnimatedList></AnimatedList>
-      <ButtonsGroup
-        handleAddText={handleAddText}
-        handleAddAudio={handleAddAudio}
-        handleAddFoto={handleAddFoto}
-        handleAddSave={handleAddSave}
-        handleCancel={handleCancel}
-      />
+    <View>
+      <Text>Lde Editor</Text>
     </View>
   );
 };
 
-export default FoeEditor;
+export default LdeEditor;

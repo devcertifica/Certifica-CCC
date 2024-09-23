@@ -1,8 +1,7 @@
 import { TItem, TListItem } from "@/constants/types";
+import { useGesture } from "@/hooks/useGesture";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-
-import { useGesture } from "@/hooks/useGesture";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 import { Color_Pallete, SONG_HEIGHT } from "../constants/constants";
@@ -23,17 +22,17 @@ const ListItem = ({
   return (
     <Animated.View key={item.id} style={[styles.itemContainer, animatedStyles]}>
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           source={{
-            uri: item.imageSrc,
+            uri: item.,
           }}
           style={styles.image}
           borderRadius={8}
-        />
+        /> */}
       </View>
       <View style={styles.descriptionContainer}>
-        <Text style={styles.description1}>{item.title}</Text>
-        <Text style={styles.description2}>{item.singer}</Text>
+        {/* <Text style={styles.description1}>{item.title}</Text>
+        <Text style={styles.description2}>{item.singer}</Text> */}
       </View>
       <GestureDetector gesture={gesture}>
         <Animated.View style={styles.draggerContainer}>

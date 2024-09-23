@@ -77,10 +77,11 @@ export default ButtonsGroup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between", // or 'center' based on desired layout
     alignItems: "center",
     backgroundColor: "white",
-    height: "100%",
   },
   buttonGroup: {
     flexDirection: "row",

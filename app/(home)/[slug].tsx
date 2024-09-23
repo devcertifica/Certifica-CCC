@@ -60,7 +60,7 @@ export const FarmListItem = () => {
             secondary
             title="Open LDE"
             onPress={() => {
-              router.push("/editors/foe-editor");
+              router.push("/editors/lde-editor");
             }}
           ></EditorButton>
           <View style={{ width: 10 }}></View>

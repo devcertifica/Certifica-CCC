@@ -47,7 +47,7 @@ export default function RootLayout() {
               ></Stack.Screen>
 
               <Stack.Screen
-                name="editors/foe-editor"
+                name="editors/lde-editor"
                 options={{ headerTitle: "LDE", headerShown: true }}
               ></Stack.Screen>
             </Stack>
