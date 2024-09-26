@@ -1,7 +1,11 @@
 import AnimatedList from "@/components/AnimatedList";
 import { AddText } from "@/components/InsertComponents";
 import { TComponentData } from "@/constants/types";
-import React, { useState } from "react";
+import {
+  ActiveFieldContext,
+  useActiveField,
+} from "@/context/lde-editor-context";
+import React, { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import uuid from "react-native-uuid";
 
@@ -10,7 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between", // or 'center' based on desired layout
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "white",
   },
@@ -27,8 +31,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 5,
-    elevation: 2, // Shadow effect for Android
-    shadowColor: "#000", // Shadow effect for iOS
+    elevation: 2,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
 });
 
 const LdeEditor = () => {
-  const [inputData, setInputData] = useState<TComponentData[]>([]);
+  const { activeId, setActiveId, inputData, setInputData } = useActiveField();
 
   const handleTextRemove = (id: string) => {
     setInputData(
@@ -53,10 +57,13 @@ const LdeEditor = () => {
   };
 
   const handleAddText = () => {
+    const generateId = uuid.v4().toString();
+    setActiveId(generateId);
+    console.log("activeId => ", activeId);
     setInputData((prev) => [
       ...prev,
       {
-        id: uuid.v4().toString(),
+        id: generateId,
         type: "text",
         content: "",
       },
@@ -95,10 +102,7 @@ const LdeEditor = () => {
 
   return (
     <View style={{ height: "100%" }}>
-      <AnimatedList
-        inputData={inputData}
-        handleTextRemove={handleTextRemove}
-      ></AnimatedList>
+      <AnimatedList handleTextRemove={handleTextRemove}></AnimatedList>
 
       {/* ButtonGroup */}
 

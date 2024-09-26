@@ -5,6 +5,7 @@ import {
   TComponentData,
   TSongPositions,
 } from "@/constants/types";
+import { useActiveField } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -24,11 +25,12 @@ export const getInitialPositions = (): TSongPositions => {
 };
 
 type TAnimatedList = {
-  inputData: TComponentData[];
   handleTextRemove: (id: string) => void;
 };
 
-const AnimatedList = ({ inputData, handleTextRemove }: TAnimatedList) => {
+const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
+  const { inputData } = useActiveField();
+
   const currentSongPositions = useSharedValue<TSongPositions>(
     getInitialPositions()
   );
@@ -83,7 +85,7 @@ export default AnimatedList;
 
 export const styles = StyleSheet.create({
   listContainer: {
-    backgroundColor: Color_Pallete.metal_black,
+    backgroundColor: "white",
     height: "90%",
   },
 });
