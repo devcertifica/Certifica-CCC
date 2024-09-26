@@ -14,7 +14,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import FarmDetailsPage from "./(home)/[slug]";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -49,6 +48,11 @@ export default function RootLayout() {
               <Stack.Screen
                 name="editors/lde-editor"
                 options={{ headerTitle: "LDE", headerShown: true }}
+              ></Stack.Screen>
+
+              <Stack.Screen
+                name="test/index"
+                options={{ headerTitle: "Test Page", headerShown: true }}
               ></Stack.Screen>
             </Stack>
           </ThemeProvider>

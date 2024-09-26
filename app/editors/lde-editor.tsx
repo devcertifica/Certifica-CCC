@@ -1,33 +1,87 @@
 import AnimatedList from "@/components/AnimatedList";
-import ButtonsGroup from "@/components/ButtonsGroup/ButtonsGroup";
 import { AddText } from "@/components/InsertComponents";
-import { TComponentItem } from "@/constants/types";
-import React, { useEffect, useState } from "react";
-import { Alert, Text, TextInput, View } from "react-native";
+import { TComponentData } from "@/constants/types";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import uuid from "react-native-uuid";
 
-const FoeEditor = () => {
-  const [components, setComponents] = useState<TComponentItem[]>([]);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between", // or 'center' based on desired layout
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  buttonGroup: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+  },
+  button: {
+    backgroundColor: "#ECECEC",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    elevation: 2, // Shadow effect for Android
+    shadowColor: "#000", // Shadow effect for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  buttonText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+  },
+});
 
-  const handleAddText = () => {
-    setComponents((prev) => [
-      ...prev,
-      { type: "text", node: <AddText></AddText> },
-    ]);
-    console.log("Handle TextInput");
+const LdeEditor = () => {
+  const [inputData, setInputData] = useState<TComponentData[]>([]);
+
+  const handleTextRemove = (id: string) => {
+    setInputData(
+      inputData.filter((el) => {
+        return el.id !== id;
+      })
+    );
   };
 
-  const handleAddAudio = () => {
-    setComponents((prev) => [
+  const handleAddText = () => {
+    setInputData((prev) => [
       ...prev,
-      { type: "audio", node: <Text>Audio</Text> },
+      {
+        id: uuid.v4().toString(),
+        type: "text",
+        content: "",
+      },
     ]);
-    console.log("Handle Audio");
   };
 
   const handleAddFoto = () => {
-    setComponents((prev) => [
+    setInputData((prev) => [
       ...prev,
-      { type: "foto", node: <Text>Foto</Text> },
+      {
+        id: uuid.v4().toString(),
+        type: "foto",
+        content: "",
+      },
+    ]);
+  };
+
+  const handleAddAudio = () => {
+    setInputData((prev) => [
+      ...prev,
+      {
+        id: uuid.v4().toString(),
+        type: "audio",
+        content: "",
+      },
     ]);
   };
 
@@ -41,16 +95,56 @@ const FoeEditor = () => {
 
   return (
     <View style={{ height: "100%" }}>
-      <AnimatedList components={components}></AnimatedList>
-      <ButtonsGroup
-        handleAddText={handleAddText}
-        handleAddAudio={handleAddAudio}
-        handleAddFoto={handleAddFoto}
-        handleAddSave={handleAddSave}
-        handleCancel={handleCancel}
-      />
+      <AnimatedList
+        inputData={inputData}
+        handleTextRemove={handleTextRemove}
+      ></AnimatedList>
+
+      {/* ButtonGroup */}
+
+      <View style={styles.container}>
+        <View style={styles.buttonGroup}>
+          <Pressable
+            style={styles.button}
+            onPress={handleAddText}
+            aria-label="Add Text"
+          >
+            <Text style={styles.buttonText}>Text</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={handleAddAudio}
+            aria-label="Add Audio"
+          >
+            <Text style={styles.buttonText}>Audio</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={handleAddFoto}
+            aria-label="Add Photo"
+          >
+            <Text style={styles.buttonText}>Foto</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={handleAddSave}
+            aria-label="Save"
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={handleCancel}
+            aria-label="Cancel"
+          >
+            <Text style={styles.buttonText}>Cancel</Text>
+          </Pressable>
+        </View>
+      </View>
+
+      {/*  */}
     </View>
   );
 };
 
-export default FoeEditor;
+export default LdeEditor;

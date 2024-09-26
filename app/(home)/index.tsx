@@ -2,8 +2,14 @@ import { SearchIcon } from "@/components/icons/icons";
 import { FarmDataType, farmData } from "@/constants/data";
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomePage = () => {

@@ -22,7 +22,8 @@ export type TSongPositions = {
 
 export type NullableNumber = null | number;
 
-export type TComponentItem = {
-  type: "text" | "foto" | "audio";
-  node?: React.ReactNode;
+export type TComponentData = {
+  id: string;
+  type: "text" | "audio" | "foto";
+  content: string;
 };

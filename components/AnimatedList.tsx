@@ -2,13 +2,13 @@ import { Color_Pallete, SONG_HEIGHT } from "@/constants/constants";
 import { SONGS } from "@/constants/data";
 import {
   NullableNumber,
-  TComponentItem,
+  TComponentData,
   TSongPositions,
 } from "@/constants/types";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { AddAudio, AddComponent, AddFoto, AddText } from "./InsertComponents";
+import { AddAudio, AddFoto, AddText } from "./InsertComponents";
 import ListItem from "./ListItem";
 
 export const getInitialPositions = (): TSongPositions => {
@@ -23,7 +23,12 @@ export const getInitialPositions = (): TSongPositions => {
   return songPositions;
 };
 
-const AnimatedList = ({ components }: { components: TComponentItem[] }) => {
+type TAnimatedList = {
+  inputData: TComponentData[];
+  handleTextRemove: (id: string) => void;
+};
+
+const AnimatedList = ({ inputData, handleTextRemove }: TAnimatedList) => {
   const currentSongPositions = useSharedValue<TSongPositions>(
     getInitialPositions()
   );
@@ -34,16 +39,22 @@ const AnimatedList = ({ components }: { components: TComponentItem[] }) => {
   //this will hold id for item which user started dragging
   const draggedItemId = useSharedValue<NullableNumber>(null);
 
-  const renderItem = (item: TComponentItem) => {
-    console.log(item);
+  const renderItem = (data: TComponentData) => {
+    console.log(data);
 
-    switch (item.type) {
+    switch (data.type) {
       case "text":
-        return item.node;
+        return (
+          <AddText
+            id={data.id}
+            handleTextRemove={handleTextRemove}
+            key={data.id}
+          ></AddText>
+        );
       case "foto":
-        return <AddFoto></AddFoto>;
+        return <AddFoto key={data.id}></AddFoto>;
       case "audio":
-        return <AddAudio></AddAudio>;
+        return <AddAudio key={data.id}></AddAudio>;
       default:
         return null;
     }
@@ -52,9 +63,7 @@ const AnimatedList = ({ components }: { components: TComponentItem[] }) => {
   return (
     <View style={styles.listContainer}>
       <ScrollView contentContainerStyle={{ height: 4 * SONG_HEIGHT }}>
-        {components.map((el, index) => {
-          return <View key={index}>{renderItem(el)}</View>;
-        })}
+        {inputData.map(renderItem)}
 
         {/* {SONGS.map((song) => (
           <ListItem

@@ -2,7 +2,7 @@ import EditorButton from "@/components/editor-buttons";
 import { useRoute } from "@react-navigation/native";
 import { useNavigation, useRouter } from "expo-router";
 import React, { useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import FeatherIcon from "react-native-vector-icons/Feather";
 

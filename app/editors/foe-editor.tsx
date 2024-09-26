@@ -1,9 +1,8 @@
 import AnimatedList from "@/components/AnimatedList";
-import ButtonsGroup from "@/components/ButtonsGroup/ButtonsGroup";
 import React from "react";
 import { Text, View } from "react-native";
 
-const LdeEditor = () => {
+const FoeEditor = () => {
   return (
     <View>
       <Text>Lde Editor</Text>
@@ -11,4 +10,4 @@ const LdeEditor = () => {
   );
 };
 
-export default LdeEditor;
+export default FoeEditor;

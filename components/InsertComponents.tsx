@@ -1,44 +1,105 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import { styles } from "./ListItem";
+import Feather from "@expo/vector-icons/Feather";
+import React, { useRef, useState } from "react";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 const textInputStyles = StyleSheet.create({
   container: {
     padding: 10,
     backgroundColor: "white",
-    marginTop: 10,
-    // outlineStyle: "none",
+    position: "relative",
+  },
+  editButton: {
+    position: "absolute",
+    top: 20,
+    right: 25,
   },
   input: {
-    borderWidth: 0,
+    borderWidth: 1,
+    borderRadius: 8,
     padding: 10,
     fontSize: 16,
-    // outlineStyle: "none",
+    overflow: "hidden",
+  },
+  buttonContainer: {
+    marginTop: 10,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  spacer: {
+    width: 15,
   },
 });
 
-export const AddComponent = () => {
-  return (
-    <View>
-      <Text>Add Component</Text>
-    </View>
-  );
+export type TAddText = {
+  id: string;
+  handleTextRemove: (id: string) => void;
 };
 
-export const AddText = () => {
+export const AddText = ({ id, handleTextRemove }: TAddText) => {
   const [text, setText] = useState<string>("");
   const [height, setHeight] = useState(40);
+  const [isEditing, setIsEditing] = useState(true);
+
+  const inputRef = useRef<TextInput>(null);
+
+  const handleSave = () => {
+    if (text.trim() === "") {
+      handleTextRemove(id);
+    }
+    setIsEditing(false);
+  };
+  const handleEdit = () => {
+    setIsEditing(true);
+    inputRef.current?.focus();
+  };
 
   return (
     <View style={textInputStyles.container}>
       <TextInput
-        style={[textInputStyles.input, { height }]}
+        ref={inputRef}
+        autoFocus={true}
+        style={[
+          textInputStyles.input,
+          { height },
+          !isEditing && { pointerEvents: "none" },
+        ]}
         multiline={true}
+        readOnly={!isEditing}
+        scrollEnabled={false}
         onContentSizeChange={(event) => {
-          setHeight(event.nativeEvent.contentSize.height);
+          const newHeight = event.nativeEvent.contentSize.height;
+          if (newHeight !== height) {
+            setHeight(newHeight);
+          }
         }}
         placeholder="Type here..."
+        value={text}
+        onChangeText={setText}
       />
+      {isEditing ? (
+        <View style={textInputStyles.buttonContainer}>
+          <Button
+            color="red"
+            title="Remove"
+            onPress={() => handleTextRemove(id)}
+          />
+          <View style={textInputStyles.spacer} />
+          <Button title="Save" onPress={handleSave} />
+        </View>
+      ) : (
+        <Pressable style={textInputStyles.editButton} onPress={handleEdit}>
+          <Feather name="edit-3" size={20} color="black" />
+        </Pressable>
+      )}
     </View>
   );
 };
