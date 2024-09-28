@@ -7,13 +7,14 @@ export type TItem = {
 };
 
 export type TListItem = {
-  item: TItem;
+  item: TComponentData;
   isDragging: SharedValue<number>;
   draggedItemId: SharedValue<NullableNumber>;
-  currentSongPositions: SharedValue<TSongPositions>;
+  currentSongPositions: SharedValue<TInputPosition>;
+  children: React.ReactNode;
 };
 
-export type TSongPositions = {
+export type TInputPosition = {
   [key: number]: {
     updatedIndex: number;
     updatedTop: number;
@@ -24,6 +25,7 @@ export type NullableNumber = null | number;
 
 export type TComponentData = {
   id: string;
+  idx: number;
   type: "text" | "audio" | "foto";
   content: string;
 };

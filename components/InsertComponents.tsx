@@ -4,6 +4,7 @@ import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React, { useRef, useState } from "react";
 import {
+  Alert,
   Button,
   Pressable,
   StyleSheet,
@@ -14,13 +15,15 @@ import {
 
 const textInputStyles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingHorizontal: 10,
     backgroundColor: "white",
+    marginVertical: 5,
+    flexGrow: 1,
   },
 
   input: {
-    borderWidth: 1,
-    borderColor: "transparent",
+    // borderWidth: 1,
+    // borderColor: "transparent",
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
@@ -28,12 +31,13 @@ const textInputStyles = StyleSheet.create({
   },
   buttonContainer: {
     position: "absolute",
-    top: 9,
+    top: 10,
     right: 25,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    height: 20,
   },
   spacer: {
     width: 15,
@@ -53,27 +57,55 @@ export const AddText = ({ id, handleTextRemove }: TAddText) => {
 
   const inputRef = useRef<TextInput>(null);
 
-  const handleSave = () => {
-    if (text.trim() === "") {
-      handleTextRemove(id);
-    }
-
-    setActiveId(null);
-  };
   const handleEdit = () => {
     setActiveId(id);
     inputRef.current?.focus();
   };
 
   const handleOnFocus = () => {
-    console.log("OnFocus is called");
     setActiveId(id);
+  };
+
+  const handleSave = () => {
+    // TODO: api call if necessary
+    setActiveId(null);
+  };
+
+  // TODO: automatic deletion on empty text block
+  const handleOnBlur = () => {
+    console.log("OnBlur called => ", text);
+    if (text.trim() === "") {
+      handleTextRemove(id);
+
+      // Confirm user to keep editing or delete the empty text
+      /*  browser not supported  
+   Alert.alert(
+        "Empty Text",
+        "This input will be deleted. Are you sure you want to delete it?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => inputRef.current?.focus(), // Keep the focus on cancel
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: () => handleTextRemove(id), // Remove the text if confirmed
+          },
+        ],
+        { cancelable: false }
+      ); */
+    } else {
+      setActiveId(null); // Clear the active ID if text is not empty
+    }
   };
 
   return (
     <View style={textInputStyles.container}>
+      {/* <Text>{id}</Text> */}
       <View style={{ position: "relative" }}>
         <TextInput
+          onBlur={() => setActiveId(null)}
           ref={inputRef}
           autoFocus={activeId === id}
           style={[textInputStyles.input, { height }]}
@@ -89,34 +121,27 @@ export const AddText = ({ id, handleTextRemove }: TAddText) => {
             }
           }}
           placeholder="Type here..."
+          placeholderTextColor={"gray"}
           value={text}
           onChangeText={setText}
         />
-        {activeId === id ? (
-          <View style={textInputStyles.buttonContainer}>
+
+        <View style={textInputStyles.buttonContainer}>
+          {activeId === id ? (
+            <Pressable onPress={handleEdit}>
+              <MaterialIcons name="done" size={20} color="green" />
+            </Pressable>
+          ) : (
             <Pressable onPress={handleEdit}>
               <Feather name="edit-3" size={20} color="black" />
             </Pressable>
-            <View style={textInputStyles.spacer} />
-            <Pressable onPress={() => handleTextRemove(id)}>
-              <MaterialIcons name="delete-outline" size={20} color="black" />
-            </Pressable>
-            {/* <Button
-              color="red"
-              title="Remove"
-              onPress={() => handleTextRemove(id)}
-            />
-            <View style={textInputStyles.spacer} />
-            <Button title="Save" onPress={handleSave} /> */}
-          </View>
-        ) : (
-          <Pressable
-            style={textInputStyles.buttonContainer}
-            onPress={handleEdit}
-          >
-            <Feather name="edit-3" size={20} color="black" />
+          )}
+
+          <View style={textInputStyles.spacer} />
+          <Pressable onPress={() => handleTextRemove(id)}>
+            <MaterialIcons name="delete-outline" size={20} color="red" />
           </Pressable>
-        )}
+        </View>
       </View>
     </View>
   );

@@ -64,6 +64,7 @@ const LdeEditor = () => {
       ...prev,
       {
         id: generateId,
+        idx: inputData.length + 1,
         type: "text",
         content: "",
       },
@@ -75,6 +76,7 @@ const LdeEditor = () => {
       ...prev,
       {
         id: uuid.v4().toString(),
+        idx: inputData.length + 1,
         type: "foto",
         content: "",
       },
@@ -86,6 +88,7 @@ const LdeEditor = () => {
       ...prev,
       {
         id: uuid.v4().toString(),
+        idx: inputData.length + 1,
         type: "audio",
         content: "",
       },

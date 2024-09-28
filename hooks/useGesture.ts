@@ -17,13 +17,18 @@ import {
   MIN_BOUNDRY,
   SONG_HEIGHT,
 } from "../constants/constants";
-import { NullableNumber, TItem, TSongPositions } from "../constants/types";
+import {
+  NullableNumber,
+  TComponentData,
+  TInputPosition,
+  TItem,
+} from "../constants/types";
 
 export const useGesture = (
-  item: TItem,
+  item: TComponentData,
   isDragging: SharedValue<number>,
   draggedItemId: SharedValue<NullableNumber>,
-  currentSongPositions: SharedValue<TSongPositions>
+  currentSongPositions: SharedValue<TInputPosition>
 ) => {
   //used for swapping with currentIndex
   const newIndex = useSharedValue<NullableNumber>(null);
@@ -35,7 +40,7 @@ export const useGesture = (
     return currentSongPositions.value;
   });
 
-  const top = useSharedValue(item.id * SONG_HEIGHT);
+  const top = useSharedValue(item.idx * SONG_HEIGHT);
 
   const isDraggingDerived = useDerivedValue(() => {
     return isDragging.value;
@@ -47,21 +52,21 @@ export const useGesture = (
 
   useAnimatedReaction(
     () => {
-      return currentSongPositionsDerived.value[item.id].updatedIndex;
+      return currentSongPositionsDerived.value[item.idx].updatedIndex;
     },
     (currentValue, previousValue) => {
       if (currentValue !== previousValue) {
         if (
           draggedItemIdDerived.value !== null &&
-          item.id === draggedItemIdDerived.value
+          item.idx === draggedItemIdDerived.value
         ) {
           top.value = withSpring(
-            currentSongPositionsDerived.value[item.id].updatedIndex *
+            currentSongPositionsDerived.value[item.idx].updatedIndex *
               SONG_HEIGHT
           );
         } else {
           top.value = withTiming(
-            currentSongPositionsDerived.value[item.id].updatedIndex *
+            currentSongPositionsDerived.value[item.idx].updatedIndex *
               SONG_HEIGHT,
             { duration: 500 }
           );
@@ -71,12 +76,12 @@ export const useGesture = (
   );
 
   const isCurrentDraggingItem = useDerivedValue(() => {
-    return isDraggingDerived.value && draggedItemIdDerived.value === item.id;
+    return isDraggingDerived.value && draggedItemIdDerived.value === item.idx;
   });
 
   const getKeyOfValue = (
     value: number,
-    obj: TSongPositions
+    obj: TInputPosition
   ): number | undefined => {
     "worklet";
     for (const [key, val] of Object.entries(obj)) {
@@ -93,11 +98,11 @@ export const useGesture = (
       isDragging.value = withSpring(1);
 
       //keep track of dragged item
-      draggedItemId.value = item.id;
+      draggedItemId.value = item.idx;
 
       //store dragged item id for future swap
       currentIndex.value =
-        currentSongPositionsDerived.value[item.id].updatedIndex;
+        currentSongPositionsDerived.value[item.idx].updatedIndex;
     })
     .onUpdate((e) => {
       if (draggedItemIdDerived.value === null) {

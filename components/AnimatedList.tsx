@@ -3,17 +3,17 @@ import { SONGS } from "@/constants/data";
 import {
   NullableNumber,
   TComponentData,
-  TSongPositions,
+  TInputPosition,
 } from "@/constants/types";
 import { useActiveField } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import DragItem from "./DragItem";
 import { AddAudio, AddFoto, AddText } from "./InsertComponents";
-import ListItem from "./ListItem";
 
-export const getInitialPositions = (): TSongPositions => {
-  let songPositions: TSongPositions = {};
+export const getInitialPositions = (): TInputPosition => {
+  let songPositions: TInputPosition = {};
   for (let i = 0; i < SONGS.length; i++) {
     songPositions[i] = {
       updatedIndex: i,
@@ -31,7 +31,7 @@ type TAnimatedList = {
 const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   const { inputData } = useActiveField();
 
-  const currentSongPositions = useSharedValue<TSongPositions>(
+  const currentSongPositions = useSharedValue<TInputPosition>(
     getInitialPositions()
   );
 
@@ -42,8 +42,6 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   const draggedItemId = useSharedValue<NullableNumber>(null);
 
   const renderItem = (data: TComponentData) => {
-    console.log(data);
-
     switch (data.type) {
       case "text":
         return (
@@ -65,17 +63,21 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   return (
     <View style={styles.listContainer}>
       <ScrollView contentContainerStyle={{ height: 4 * SONG_HEIGHT }}>
-        {inputData.map(renderItem)}
+        {inputData.map((data, index) => {
+          return (
+            <DragItem
+              key={data.id}
+              item={data}
+              isDragging={isDragging}
+              draggedItemId={draggedItemId}
+              currentSongPositions={currentSongPositions}
+            >
+              {renderItem(data)}
+            </DragItem>
+          );
+        })}
 
-        {/* {SONGS.map((song) => (
-          <ListItem
-            item={song}
-            key={song.id}
-            isDragging={isDragging}
-            draggedItemId={draggedItemId}
-            currentSongPositions={currentSongPositions}
-          />
-        ))} */}
+        {/* {inputData.map(renderItem)} */}
       </ScrollView>
     </View>
   );
@@ -89,3 +91,13 @@ export const styles = StyleSheet.create({
     height: "90%",
   },
 });
+
+/* {SONGS.map((song) => (
+          <ListItem
+            item={song}
+            key={song.id}
+            isDragging={isDragging}
+            draggedItemId={draggedItemId}
+            currentSongPositions={currentSongPositions}
+          />
+        ))} */

@@ -11,6 +11,7 @@ const ListItem = ({
   isDragging,
   draggedItemId,
   currentSongPositions,
+  children,
 }: TListItem) => {
   const { animatedStyles, gesture } = useGesture(
     item,
@@ -20,28 +21,17 @@ const ListItem = ({
   );
 
   return (
-    <Animated.View key={item.id} style={[styles.itemContainer, animatedStyles]}>
-      <View style={styles.imageContainer}>
-        {/* <Image
-          source={{
-            uri: item.,
-          }}
-          style={styles.image}
-          borderRadius={8}
-        /> */}
-      </View>
-      <View style={styles.descriptionContainer}>
-        {/* <Text style={styles.description1}>{item.title}</Text>
-        <Text style={styles.description2}>{item.singer}</Text> */}
-      </View>
-      <GestureDetector gesture={gesture}>
+    <GestureDetector gesture={gesture}>
+      <Animated.View style={[styles.itemContainer, animatedStyles]}>
+        {children}
+
         <Animated.View style={styles.draggerContainer}>
           <View style={[styles.dragger, styles.marginBottom]} />
           <View style={[styles.dragger, styles.marginBottom]} />
           <View style={styles.dragger} />
         </Animated.View>
-      </GestureDetector>
-    </Animated.View>
+      </Animated.View>
+    </GestureDetector>
   );
 };
 
@@ -55,23 +45,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: Color_Pallete.crystal_white,
   },
-  imageContainer: {
-    height: SONG_HEIGHT,
-    width: "20%",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    padding: 10,
-  },
-  descriptionContainer: {
-    width: "60%",
-    justifyContent: "space-evenly",
-  },
-  description1: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: Color_Pallete.crystal_white,
-  },
-  description2: { color: Color_Pallete.silver_storm },
+
   draggerContainer: {
     width: "20%",
     alignItems: "center",
