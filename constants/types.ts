@@ -10,7 +10,7 @@ export type TListItem = {
   item: TComponentData;
   isDragging: SharedValue<number>;
   draggedItemId: SharedValue<NullableNumber>;
-  currentSongPositions: SharedValue<TInputPosition>;
+  currentInputPositions: SharedValue<TInputPosition>;
   children: React.ReactNode;
 };
 

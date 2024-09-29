@@ -22,8 +22,8 @@ const textInputStyles = StyleSheet.create({
   },
 
   input: {
-    // borderWidth: 1,
-    // borderColor: "transparent",
+    borderWidth: 1,
+    borderColor: "transparent",
     borderRadius: 8,
     padding: 10,
     fontSize: 16,
@@ -101,11 +101,14 @@ export const AddText = ({ id, handleTextRemove }: TAddText) => {
   };
 
   return (
-    <View style={textInputStyles.container}>
+    <View style={[textInputStyles.container]}>
       {/* <Text>{id}</Text> */}
       <View style={{ position: "relative" }}>
         <TextInput
-          onBlur={() => setActiveId(null)}
+          onBlur={() => {
+            setActiveId(null);
+            console.log("height => ", height);
+          }}
           ref={inputRef}
           autoFocus={activeId === id}
           style={[textInputStyles.input, { height }]}

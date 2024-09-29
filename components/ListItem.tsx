@@ -10,14 +10,14 @@ const ListItem = ({
   item,
   isDragging,
   draggedItemId,
-  currentSongPositions,
+  currentInputPositions,
   children,
 }: TListItem) => {
   const { animatedStyles, gesture } = useGesture(
     item,
     isDragging,
     draggedItemId,
-    currentSongPositions
+    currentInputPositions
   );
 
   return (

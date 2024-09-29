@@ -13,15 +13,15 @@ import DragItem from "./DragItem";
 import { AddAudio, AddFoto, AddText } from "./InsertComponents";
 
 export const getInitialPositions = (): TInputPosition => {
-  let songPositions: TInputPosition = {};
+  let inputPosition: TInputPosition = {};
   for (let i = 0; i < SONGS.length; i++) {
-    songPositions[i] = {
+    inputPosition[i] = {
       updatedIndex: i,
       updatedTop: i * SONG_HEIGHT,
     };
   }
 
-  return songPositions;
+  return inputPosition;
 };
 
 type TAnimatedList = {
@@ -31,7 +31,7 @@ type TAnimatedList = {
 const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   const { inputData } = useActiveField();
 
-  const currentSongPositions = useSharedValue<TInputPosition>(
+  const currentInputPositions = useSharedValue<TInputPosition>(
     getInitialPositions()
   );
 
@@ -62,22 +62,22 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
 
   return (
     <View style={styles.listContainer}>
-      <ScrollView contentContainerStyle={{ height: 4 * SONG_HEIGHT }}>
-        {inputData.map((data, index) => {
+      <ScrollView contentContainerStyle={{ height: "auto" }}>
+        {/* {inputData.map((data, index) => {
           return (
             <DragItem
               key={data.id}
               item={data}
               isDragging={isDragging}
               draggedItemId={draggedItemId}
-              currentSongPositions={currentSongPositions}
+              currentInputPositions={currentInputPositions}
             >
               {renderItem(data)}
             </DragItem>
           );
-        })}
+        })} */}
 
-        {/* {inputData.map(renderItem)} */}
+        {inputData.map(renderItem)}
       </ScrollView>
     </View>
   );

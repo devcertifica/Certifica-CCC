@@ -1,6 +1,5 @@
 import AnimatedList from "@/components/AnimatedList";
 import { AddText } from "@/components/InsertComponents";
-import { TComponentData } from "@/constants/types";
 import {
   ActiveFieldContext,
   useActiveField,

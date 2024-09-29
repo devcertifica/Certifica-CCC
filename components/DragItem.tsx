@@ -9,18 +9,15 @@ const DragItem = ({
   item,
   isDragging,
   draggedItemId,
-  currentSongPositions,
+  currentInputPositions,
   children,
 }: TListItem) => {
   const { animatedStyles, gesture } = useGesture(
     item,
     isDragging,
     draggedItemId,
-    currentSongPositions
+    currentInputPositions
   );
-
-  console.log("animatedStyles => ", animatedStyles);
-  console.log("gesture => ", gesture);
 
   return (
     <GestureDetector gesture={gesture}>
