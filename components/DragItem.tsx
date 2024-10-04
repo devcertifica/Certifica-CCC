@@ -12,17 +12,21 @@ const DragItem = ({
   currentInputPositions,
   children,
 }: TListItem) => {
-  const { animatedStyles, gesture } = useGesture(
-    item,
-    isDragging,
-    draggedItemId,
-    currentInputPositions
-  );
+  // const { animatedStyles, gesture } = useGesture(
+  //   item,
+  //   isDragging,
+  //   draggedItemId,
+  //   currentInputPositions
+  // );
 
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[]}>{children}</Animated.View>
-    </GestureDetector>
+    // <GestureDetector gesture={gesture}>
+    //   <Animated.View style={[]}>{children}</Animated.View>
+    // </GestureDetector>
+
+    <View>
+      <View style={[]}>{children}</View>
+    </View>
   );
 };
 

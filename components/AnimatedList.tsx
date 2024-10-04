@@ -1,5 +1,3 @@
-import { Color_Pallete, SONG_HEIGHT } from "@/constants/constants";
-import { SONGS } from "@/constants/data";
 import {
   NullableNumber,
   TComponentData,
@@ -12,13 +10,20 @@ import { useSharedValue } from "react-native-reanimated";
 import DragItem from "./DragItem";
 import { AddAudio, AddFoto, AddText } from "./InsertComponents";
 
-export const getInitialPositions = (): TInputPosition => {
+export const getInitialPositions = (
+  inputData: TComponentData[]
+): TInputPosition => {
   let inputPosition: TInputPosition = {};
-  for (let i = 0; i < SONGS.length; i++) {
-    inputPosition[i] = {
-      updatedIndex: i,
-      updatedTop: i * SONG_HEIGHT,
-    };
+
+  for (let i = 0; i < inputData.length; i++) {
+    const item = inputData[i];
+
+    if (item && typeof item.height === "number") {
+      inputPosition[i] = {
+        updatedIndex: i,
+        updatedTop: i * item.height,
+      };
+    }
   }
 
   return inputPosition;
@@ -32,7 +37,7 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   const { inputData } = useActiveField();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
-    getInitialPositions()
+    getInitialPositions(inputData)
   );
 
   //used to know if drag is happening or not
@@ -51,10 +56,11 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
             key={data.id}
           ></AddText>
         );
-      case "foto":
-        return <AddFoto key={data.id}></AddFoto>;
+
       case "audio":
         return <AddAudio key={data.id}></AddAudio>;
+      case "foto":
+        return <AddFoto key={data.id} id={data.id}></AddFoto>;
       default:
         return null;
     }
@@ -63,7 +69,7 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
   return (
     <View style={styles.listContainer}>
       <ScrollView contentContainerStyle={{ height: "auto" }}>
-        {/* {inputData.map((data, index) => {
+        {inputData.map((data, index) => {
           return (
             <DragItem
               key={data.id}
@@ -75,9 +81,9 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
               {renderItem(data)}
             </DragItem>
           );
-        })} */}
+        })}
 
-        {inputData.map(renderItem)}
+        {/* {inputData.map(renderItem)} */}
       </ScrollView>
     </View>
   );

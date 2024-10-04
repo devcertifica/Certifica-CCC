@@ -23,9 +23,24 @@ export type TInputPosition = {
 
 export type NullableNumber = null | number;
 
-export type TComponentData = {
+export type TBaseComponentData = {
   id: string;
   idx: number;
-  type: "text" | "audio" | "foto";
   content: string;
+  height: number | undefined;
 };
+
+export type TTextData = TBaseComponentData & {
+  type: "text";
+};
+
+export type TFotoData = TBaseComponentData & {
+  type: "foto";
+};
+
+export type TAudioData = TBaseComponentData & {
+  type: "audio";
+  duration: number; // This field is only present when the type is audio
+};
+
+export type TComponentData = TTextData | TFotoData | TAudioData;

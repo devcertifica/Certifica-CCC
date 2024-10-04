@@ -1,11 +1,9 @@
 import AnimatedList from "@/components/AnimatedList";
-import { AddText } from "@/components/InsertComponents";
-import {
-  ActiveFieldContext,
-  useActiveField,
-} from "@/context/lde-editor-context";
-import React, { useContext, useState } from "react";
+import { useActiveField } from "@/context/lde-editor-context";
+import React, { useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import AudioRecorderPlayer from "react-native-audio-recorder-player";
+import { launchImageLibrary } from "react-native-image-picker";
 import uuid from "react-native-uuid";
 
 const styles = StyleSheet.create({
@@ -47,6 +45,54 @@ const styles = StyleSheet.create({
 const LdeEditor = () => {
   const { activeId, setActiveId, inputData, setInputData } = useActiveField();
 
+  const [recording, setRecording] = useState(false);
+
+  const [audioDuration, setAudioDuration] = useState(0);
+
+  const audioRecorderPlayerRef = useRef(new AudioRecorderPlayer()).current;
+
+  const handleLongPressStart = async () => {
+    console.log("Long Press Start");
+    const path = `${uuid.v4()}.mp3`;
+    setRecording(true);
+
+    try {
+      const result = await audioRecorderPlayerRef.startRecorder(path);
+      console.log("Recording started: ", result);
+      audioRecorderPlayerRef.addRecordBackListener((e) => {
+        setAudioDuration(Math.floor(e.currentPosition / 1000));
+        return;
+      });
+    } catch (error) {
+      console.log("Error starting recording: ", error);
+    }
+  };
+
+  const handleReleaseStop = async () => {
+    console.log("Release Stop");
+    const generateId = uuid.v4().toString();
+    setRecording(false);
+    try {
+      const result = await audioRecorderPlayerRef.stopRecorder();
+      audioRecorderPlayerRef.removeRecordBackListener();
+      console.log("Recording stopped: ", result);
+
+      setInputData((prev) => [
+        ...prev,
+        {
+          id: generateId,
+          idx: inputData.length + 1,
+          type: "audio",
+          content: result,
+          height: 50,
+          duration: audioDuration,
+        },
+      ]);
+    } catch (error) {
+      console.log("Error stopping recording: ", error);
+    }
+  };
+
   const handleTextRemove = (id: string) => {
     setInputData(
       inputData.filter((el) => {
@@ -66,32 +112,41 @@ const LdeEditor = () => {
         idx: inputData.length + 1,
         type: "text",
         content: "",
+        height: 40,
       },
     ]);
   };
 
   const handleAddFoto = () => {
-    setInputData((prev) => [
-      ...prev,
-      {
-        id: uuid.v4().toString(),
-        idx: inputData.length + 1,
-        type: "foto",
-        content: "",
-      },
-    ]);
-  };
+    const generateId = uuid.v4().toString();
 
-  const handleAddAudio = () => {
-    setInputData((prev) => [
-      ...prev,
+    launchImageLibrary(
       {
-        id: uuid.v4().toString(),
-        idx: inputData.length + 1,
-        type: "audio",
-        content: "",
+        mediaType: "photo",
+        selectionLimit: 1,
+        includeBase64: false,
       },
-    ]);
+      (response) => {
+        if (response.didCancel) {
+          console.log("User cancelled image picker");
+        } else if (response.errorCode) {
+          console.log("ImagePicker Error: ", response.errorMessage);
+        } else if (response.assets && response.assets.length > 0) {
+          const selectedImage = response.assets[0];
+
+          setInputData((prev) => [
+            ...prev,
+            {
+              id: generateId,
+              idx: inputData.length + 1,
+              type: "foto",
+              content: selectedImage.uri ?? "",
+              height: selectedImage.height,
+            },
+          ]);
+        }
+      }
+    );
   };
 
   const handleAddSave = () => {
@@ -119,7 +174,8 @@ const LdeEditor = () => {
           </Pressable>
           <Pressable
             style={styles.button}
-            onPress={handleAddAudio}
+            onLongPress={handleLongPressStart}
+            onPressOut={handleReleaseStop}
             aria-label="Add Audio"
           >
             <Text style={styles.buttonText}>Audio</Text>

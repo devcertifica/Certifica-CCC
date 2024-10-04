@@ -50,6 +50,11 @@ export default function RootLayout() {
                   name="editors/lde-editor"
                   options={{ headerTitle: "LDE", headerShown: true }}
                 ></Stack.Screen>
+
+                <Stack.Screen
+                  name="test/index"
+                  options={{ headerTitle: "Test Page", headerShown: true }}
+                ></Stack.Screen>
               </Stack>
             </ThemeProvider>
           </ActiveFieldProvider>
