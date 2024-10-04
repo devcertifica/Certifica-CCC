@@ -131,7 +131,7 @@ export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
 
         <View style={textInputStyles.buttonContainer}>
           {activeId === id ? (
-            <Pressable onPress={handleEdit}>
+            <Pressable onPress={handleSave}>
               <MaterialIcons name="done" size={20} color="green" />
             </Pressable>
           ) : (
