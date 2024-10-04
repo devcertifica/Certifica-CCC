@@ -69,10 +69,21 @@ const HomePage = () => {
         />
       </View>
 
-      <View>
-        <Link href={`/test/test`} style={searchResultStyles.flatTile}>
-          <View style={searchResultStyles.flatTile}>
-            <Text>Test</Text>
+      <View style={{ marginTop: 20, backgroundColor: "#00000050" }}>
+        <Link
+          href={`/test/test`}
+          style={[
+            searchResultStyles.flatTile,
+            { backgroundColor: "#00000050" },
+          ]}
+        >
+          <View
+            style={[
+              searchResultStyles.flatTile,
+              { backgroundColor: "transparent" },
+            ]}
+          >
+            <Text style={{ color: "white" }}>Audio Recording Test Link</Text>
           </View>
         </Link>
       </View>

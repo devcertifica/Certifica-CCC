@@ -1,5 +1,5 @@
 import useAudio from "@/hooks/useAudio"; // Import your custom hook
-import { Audio } from "expo-av";
+import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
 import React, { useEffect, useState } from "react";
 import {
   Pressable,
@@ -41,6 +41,21 @@ const VoiceMessageRecorder = () => {
       return false;
     }
     setPermissionGranted(true);
+    // Set the audio mode to enable recording on iOS
+    try {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true, // Allow recording in silent mode
+        staysActiveInBackground: false,
+        interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+        interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
+      });
+    } catch (error) {
+      console.log("Error setting audio mode:", error);
+      return false;
+    }
     return true;
   };
 
@@ -161,7 +176,7 @@ const VoiceMessageRecorder = () => {
             <Text style={styles.buttonText}>▶️ Play Recording</Text>
           </Pressable>
           <View style={[styles.player, { width: barWidth }]}>
-            <Text>Sound status:{status}</Text>
+            {/* <Text>Sound status:{status}</Text> */}
             <Progress.Bar
               progress={position / duration || 0}
               width={barWidth}
