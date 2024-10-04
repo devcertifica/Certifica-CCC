@@ -52,7 +52,7 @@ export default function RootLayout() {
                 ></Stack.Screen>
 
                 <Stack.Screen
-                  name="test/index"
+                  name="test/test"
                   options={{ headerTitle: "Test Page", headerShown: true }}
                 ></Stack.Screen>
               </Stack>

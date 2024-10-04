@@ -93,7 +93,7 @@ const LdeEditor = () => {
     }
   };
 
-  const handleTextRemove = (id: string) => {
+  const handleRemoveId = (id: string) => {
     setInputData(
       inputData.filter((el) => {
         return el.id !== id;
@@ -159,7 +159,7 @@ const LdeEditor = () => {
 
   return (
     <View style={{ height: "100%" }}>
-      <AnimatedList handleTextRemove={handleTextRemove}></AnimatedList>
+      <AnimatedList handleRemoveId={handleRemoveId}></AnimatedList>
 
       {/* ButtonGroup */}
 

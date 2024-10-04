@@ -46,12 +46,12 @@ const textInputStyles = StyleSheet.create({
   },
 });
 
-export type TAddText = {
+export type TAddComponent = {
   id: string;
-  handleTextRemove: (id: string) => void;
+  handleRemoveId: (id: string) => void;
 };
 
-export const AddText = ({ id, handleTextRemove }: TAddText) => {
+export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
   const { activeId, setActiveId, inputData, setInputData } = useActiveField();
 
   // Get the current component's data(content and height) from inputData
@@ -80,7 +80,7 @@ export const AddText = ({ id, handleTextRemove }: TAddText) => {
   const handleOnBlur = () => {
     console.log("OnBlur called => ", content);
     if (content.trim() === "") {
-      handleTextRemove(id);
+      handleRemoveId(id);
     } else {
       setActiveId(null); // Clear the active ID if text is not empty
     }
@@ -141,7 +141,7 @@ export const AddText = ({ id, handleTextRemove }: TAddText) => {
           )}
 
           <View style={textInputStyles.spacer} />
-          <Pressable onPress={() => handleTextRemove(id)}>
+          <Pressable onPress={() => handleRemoveId(id)}>
             <MaterialIcons name="delete-outline" size={20} color="red" />
           </Pressable>
         </View>
@@ -161,14 +161,30 @@ export const AddAudio = () => {
 const fotoStyles = StyleSheet.create({
   container: {
     width: "100%", // Make sure the container takes full width
+    position: "relative",
   },
   image: {
     resizeMode: "contain", // Keep aspect ratio while fitting in the container
     width: "100%", // Make the image fit the container width
   },
+  buttonsGroup: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 20,
+  },
+  buttonContainer: {
+    backgroundColor: "#00000020",
+    padding: 5,
+    borderRadius: 20,
+  },
 });
 
-export const AddFoto = ({ id }: { id: string }) => {
+export const AddFoto = ({ id, handleRemoveId }: TAddComponent) => {
   const { inputData } = useActiveField();
 
   const { content, height } = inputData.find((item) => item.id === id) || {
@@ -180,7 +196,6 @@ export const AddFoto = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (content) {
-      // Fetch the image dimensions to calculate the aspect ratio
       Image.getSize(
         content,
         (width, height) => {
@@ -193,21 +208,26 @@ export const AddFoto = ({ id }: { id: string }) => {
     }
   }, [content]);
 
-  if (!content) return null; // Return null if no image is available
+  if (!content) return null;
 
   return (
     <View style={fotoStyles.container}>
       {imageAspectRatio ? (
         <Image
           source={{ uri: content }}
-          style={[
-            fotoStyles.image,
-            { aspectRatio: imageAspectRatio }, // Dynamically set aspect ratio
-          ]}
+          style={[fotoStyles.image, { aspectRatio: imageAspectRatio }]}
         />
       ) : (
         <View style={{ height: height, backgroundColor: "#ECECEC" }} />
       )}
+
+      <View style={fotoStyles.buttonsGroup}>
+        <View style={fotoStyles.buttonContainer}>
+          <Pressable onPress={() => handleRemoveId(id)}>
+            <MaterialIcons name="delete-outline" size={20} color="red" />
+          </Pressable>
+        </View>
+      </View>
     </View>
   );
 };

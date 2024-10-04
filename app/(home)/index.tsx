@@ -68,6 +68,14 @@ const HomePage = () => {
           )}
         />
       </View>
+
+      <View>
+        <Link href={`/test/test`} style={searchResultStyles.flatTile}>
+          <View style={searchResultStyles.flatTile}>
+            <Text>Test</Text>
+          </View>
+        </Link>
+      </View>
     </SafeAreaView>
   );
 };

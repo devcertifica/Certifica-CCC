@@ -30,10 +30,10 @@ export const getInitialPositions = (
 };
 
 type TAnimatedList = {
-  handleTextRemove: (id: string) => void;
+  handleRemoveId: (id: string) => void;
 };
 
-const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
+const AnimatedList = ({ handleRemoveId }: TAnimatedList) => {
   const { inputData } = useActiveField();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
@@ -52,7 +52,7 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
         return (
           <AddText
             id={data.id}
-            handleTextRemove={handleTextRemove}
+            handleRemoveId={handleRemoveId}
             key={data.id}
           ></AddText>
         );
@@ -60,7 +60,13 @@ const AnimatedList = ({ handleTextRemove }: TAnimatedList) => {
       case "audio":
         return <AddAudio key={data.id}></AddAudio>;
       case "foto":
-        return <AddFoto key={data.id} id={data.id}></AddFoto>;
+        return (
+          <AddFoto
+            key={data.id}
+            id={data.id}
+            handleRemoveId={handleRemoveId}
+          ></AddFoto>
+        );
       default:
         return null;
     }
