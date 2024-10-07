@@ -1,5 +1,4 @@
 import AnimatedList from "@/components/AnimatedList";
-import ButtonsGroup from "@/components/ButtonsGroup/ButtonsGroup";
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

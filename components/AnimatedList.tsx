@@ -8,7 +8,8 @@ import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import DragItem from "./DragItem";
-import { AddAudio, AddFoto, AddText } from "./InsertComponents";
+import { AddAudio, AddFoto } from "./InsertComponents";
+import { AddText } from "./InsertComponents/AddText";
 
 export const getInitialPositions = (
   inputData: TComponentData[]
@@ -25,7 +26,6 @@ export const getInitialPositions = (
       };
     }
   }
-
   return inputPosition;
 };
 

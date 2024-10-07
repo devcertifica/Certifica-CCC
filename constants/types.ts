@@ -44,3 +44,8 @@ export type TAudioData = TBaseComponentData & {
 };
 
 export type TComponentData = TTextData | TFotoData | TAudioData;
+
+export type TAddComponent = {
+  id: string;
+  handleRemoveId: (id: string) => void;
+};

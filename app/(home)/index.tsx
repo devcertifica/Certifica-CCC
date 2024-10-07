@@ -61,9 +61,7 @@ const HomePage = () => {
           contentContainerStyle={{ rowGap: 10 }}
           renderItem={({ item }) => (
             <Link href={`/${item.name}`} style={searchResultStyles.flatTile}>
-              <View style={searchResultStyles.flatTile}>
-                <Text>{item.name}</Text>
-              </View>
+              <Text>{item.name}</Text>
             </Link>
           )}
         />
@@ -145,11 +143,10 @@ const searchResultStyles = StyleSheet.create({
   },
   flatTile: {
     paddingHorizontal: 10,
-    paddingVertical: 8,
-    // shadowColor: "#171717",
-    // shadowOffset: { width: 1, height: 1 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 1,
+    paddingVertical: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#FAF9F6",
   },
 });
