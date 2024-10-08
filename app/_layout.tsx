@@ -41,14 +41,22 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <ActiveFieldProvider>
             <ThemeProvider value={DefaultTheme}>
-              <Stack>
+              <Stack screenOptions={{ headerTintColor: "black" }}>
                 <Stack.Screen
                   name="(home)/index"
-                  options={{ headerShown: false }}
+                  options={{
+                    title: "",
+                    headerShown: false,
+                    headerTintColor: "black",
+                  }}
                 ></Stack.Screen>
                 <Stack.Screen
                   name="editors/lde-editor"
-                  options={{ headerTitle: "LDE", headerShown: true }}
+                  options={{
+                    title: "",
+                    headerShown: true,
+                    headerTitle: "LDE-Editor",
+                  }}
                 ></Stack.Screen>
 
                 <Stack.Screen

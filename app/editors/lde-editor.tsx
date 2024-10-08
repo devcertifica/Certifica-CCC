@@ -282,14 +282,14 @@ const LdeEditor = () => {
 
           {/*  */}
 
-          {/* <Pressable
+          <Pressable
             style={styles.button}
             onPress={handleAddSave}
             aria-label="Save"
           >
             <Text style={styles.buttonText}>Save</Text>
           </Pressable>
-          <Pressable
+          {/* <Pressable 
             style={styles.button}
             onPress={handleCancel}
             aria-label="Cancel"
