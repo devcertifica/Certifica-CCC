@@ -27,9 +27,9 @@ const FarmDetailsPage = () => {
       }}
     >
       <FarmListItem></FarmListItem>
+      {/* <FarmListItem></FarmListItem>
       <FarmListItem></FarmListItem>
-      <FarmListItem></FarmListItem>
-      <FarmListItem></FarmListItem>
+      <FarmListItem></FarmListItem> */}
     </View>
   );
 };

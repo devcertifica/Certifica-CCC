@@ -21,18 +21,17 @@ type StatusType =
   | "isPlaying"
   | "finished"
   | "error"
-  | "isLooping"; // 'finished' instead of 'didJustFinish'
+  | "isLooping";
 
 const msToSeconds = (num: number) => Math.round(num / 1000);
 
-// Remove 'didJustFinish' from this array
 const STATUSES = ["isBuffering", "isPlaying", "isLooping"] as const;
 
 // Map playback status to StatusType
 const getStatus = (playbackEvent: AVPlaybackStatusSuccess): StatusType => {
-  if (playbackEvent.didJustFinish) return "finished"; // Explicitly handle 'didJustFinish'
+  if (playbackEvent.didJustFinish) return "finished";
   const status = STATUSES.find((status) => playbackEvent[status] === true);
-  return status ?? "isLoading"; // Default to 'isLoading' if no other status matches
+  return status ?? "finished"; // Default to 'isLoading' if no other status matches
 };
 
 export default function useAudio({
@@ -63,6 +62,9 @@ export default function useAudio({
         if (onPlaybackStatusUpdate) {
           onPlaybackStatusUpdate(playbackEvent);
         }
+        if (playbackEvent.didJustFinish) {
+          setStatus("finished");
+        }
       } else if ("error" in playbackEvent) {
         const errorEvent = playbackEvent as AVPlaybackStatusError;
         console.log(`Error: ${errorEvent.error}`);
@@ -89,7 +91,7 @@ export default function useAudio({
           typeof uri === "string" ? { uri } : uri,
           {
             shouldPlay,
-            progressUpdateIntervalMillis: updateIntervals, // Update progress every second
+            progressUpdateIntervalMillis: updateIntervals,
             positionMillis: startPosition,
             isLooping: shouldLoop,
             volume: 1,

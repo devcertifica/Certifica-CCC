@@ -1,8 +1,17 @@
 import AnimatedList from "@/components/AnimatedList";
+import { formatSeconds } from "@/constants/utils";
 import { useActiveField } from "@/context/lde-editor-context";
+import useAudio from "@/hooks/useAudio";
+import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
 import React, { useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
 import uuid from "react-native-uuid";
 
@@ -45,7 +54,23 @@ const styles = StyleSheet.create({
 const LdeEditor = () => {
   const { activeId, setActiveId, inputData, setInputData } = useActiveField();
 
-  const handleRemoveId = (id: string) => {
+  const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [permissionGranted, setPermissionGranted] = useState<boolean>(false);
+
+  const [recording, setRecording] = useState<Audio.Recording | null>(null);
+  const [soundURI, setSoundURI] = useState<string | null>(null);
+  const [recordingDuration, setRecordingDuration] = useState<number>(0); // State to track recording duration
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null); // Interval ID to clear timer
+
+  const { position, status, duration, sound } = useAudio({
+    uri: soundURI ? soundURI : "",
+    shouldPlay: false, // Manually control play state
+    shouldLoop: false,
+    updateIntervals: 1000,
+    startPosition: 0,
+  });
+
+  const removeById = (id: string) => {
     setInputData(
       inputData.filter((el) => {
         return el.id !== id;
@@ -56,7 +81,6 @@ const LdeEditor = () => {
   const handleAddText = () => {
     const generateId = uuid.v4().toString();
     setActiveId(generateId);
-    console.log("activeId => ", activeId);
     setInputData((prev) => [
       ...prev,
       {
@@ -108,9 +132,116 @@ const LdeEditor = () => {
     alert("Cancel");
   };
 
+  const requestPermissions = async () => {
+    const { status } = await Audio.requestPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access microphone is required!");
+      return false;
+    }
+    setPermissionGranted(true);
+    // Set the audio mode to enable recording on iOS
+    try {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true, // Allow recording in silent mode
+        staysActiveInBackground: false,
+        interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+        interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
+        shouldDuckAndroid: true,
+        playThroughEarpieceAndroid: false,
+      });
+    } catch (error) {
+      console.log("Error setting audio mode:", error);
+      return false;
+    }
+    return true;
+  };
+
+  const handleLongPressStart = async () => {
+    const hasPermission = await requestPermissions();
+    if (!hasPermission) return;
+
+    try {
+      console.log("Starting recording...");
+      const recording = new Audio.Recording();
+      await recording.prepareToRecordAsync({
+        android: {
+          extension: ".m4a",
+          outputFormat: 2, // MPEG_4 format
+          audioEncoder: 3, // AAC encoder
+          sampleRate: 44100,
+          numberOfChannels: 2,
+          bitRate: 128000,
+        },
+        ios: {
+          extension: ".m4a",
+          audioQuality: 127, // High-quality audio
+          sampleRate: 44100,
+          numberOfChannels: 2,
+          bitRate: 128000,
+          linearPCMBitDepth: 16,
+          linearPCMIsBigEndian: false,
+          linearPCMIsFloat: false,
+        },
+        web: {
+          mimeType: "audio/webm", // Set mimeType for web platform
+          bitsPerSecond: 128000,
+        },
+      });
+      await recording.startAsync();
+      setRecording(recording);
+      setIsRecording(true);
+
+      // Start the timer to update recording duration every second
+      const id = setInterval(() => {
+        setRecordingDuration((prev) => prev + 1);
+      }, 1000);
+      setIntervalId(id);
+    } catch (err) {
+      console.log("Error starting recording: ", err);
+    }
+  };
+
+  const handleReleaseStop = async () => {
+    console.log("Stopping recording...");
+    setIsRecording(false);
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+
+    try {
+      if (recording) {
+        await recording.stopAndUnloadAsync();
+        const uri = recording.getURI();
+        console.log("Recording saved at:", uri);
+        setSoundURI(uri);
+
+        // Store the audio in inputData
+        const generateId = uuid.v4().toString();
+        setActiveId(generateId);
+        setInputData((prev) => [
+          ...prev,
+          {
+            id: generateId,
+            idx: inputData.length + 1,
+            type: "audio",
+            content: uri || "",
+            duration: recordingDuration,
+            height: 100,
+          },
+        ]);
+      }
+    } catch (error) {
+      console.log("Error stopping recording:", error);
+    }
+
+    setRecordingDuration(0); // Reset the recording duration after saving
+  };
+
   return (
     <View style={{ height: "100%" }}>
-      <AnimatedList handleRemoveId={handleRemoveId}></AnimatedList>
+      <AnimatedList removeById={removeById}></AnimatedList>
 
       {/* ButtonGroup */}
 
@@ -123,14 +254,7 @@ const LdeEditor = () => {
           >
             <Text style={styles.buttonText}>Text</Text>
           </Pressable>
-          <Pressable
-            style={styles.button}
-            // onLongPress={handleLongPressStart}
-            // onPressOut={handleReleaseStop}
-            aria-label="Add Audio"
-          >
-            <Text style={styles.buttonText}>Audio</Text>
-          </Pressable>
+
           <Pressable
             style={styles.button}
             onPress={handleAddFoto}
@@ -138,7 +262,27 @@ const LdeEditor = () => {
           >
             <Text style={styles.buttonText}>Foto</Text>
           </Pressable>
-          <Pressable
+
+          {/*  */}
+
+          {
+            <Pressable
+              style={styles.button}
+              onLongPress={handleLongPressStart}
+              onPressOut={handleReleaseStop}
+              aria-label="Add Audio"
+            >
+              <Text style={styles.buttonText}>
+                {isRecording
+                  ? `Recording... ${formatSeconds(recordingDuration)}`
+                  : "Hold To Record"}
+              </Text>
+            </Pressable>
+          }
+
+          {/*  */}
+
+          {/* <Pressable
             style={styles.button}
             onPress={handleAddSave}
             aria-label="Save"
@@ -151,7 +295,7 @@ const LdeEditor = () => {
             aria-label="Cancel"
           >
             <Text style={styles.buttonText}>Cancel</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
       </View>
 

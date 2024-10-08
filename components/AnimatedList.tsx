@@ -30,10 +30,10 @@ export const getInitialPositions = (
 };
 
 type TAnimatedList = {
-  handleRemoveId: (id: string) => void;
+  removeById: (id: string) => void;
 };
 
-const AnimatedList = ({ handleRemoveId }: TAnimatedList) => {
+const AnimatedList = ({ removeById: removeById }: TAnimatedList) => {
   const { inputData } = useActiveField();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
@@ -49,24 +49,12 @@ const AnimatedList = ({ handleRemoveId }: TAnimatedList) => {
   const renderItem = (data: TComponentData) => {
     switch (data.type) {
       case "text":
-        return (
-          <AddText
-            id={data.id}
-            handleRemoveId={handleRemoveId}
-            key={data.id}
-          ></AddText>
-        );
+        return <AddText id={data.id} key={data.id}></AddText>;
 
       case "audio":
-        return <AddAudio key={data.id}></AddAudio>;
+        return <AddAudio id={data.id} key={data.id}></AddAudio>;
       case "foto":
-        return (
-          <AddFoto
-            key={data.id}
-            id={data.id}
-            handleRemoveId={handleRemoveId}
-          ></AddFoto>
-        );
+        return <AddFoto key={data.id} id={data.id}></AddFoto>;
       default:
         return null;
     }

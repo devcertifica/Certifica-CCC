@@ -1,16 +1,19 @@
+import { forIOS } from "@/constants/utils";
 import { useActiveField } from "@/context/lde-editor-context";
 import Feather from "@expo/vector-icons/Feather";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
+  NativeSyntheticEvent,
   Platform,
   Pressable,
   StyleSheet,
   TextInput,
+  TextInputContentSizeChangeEventData,
   UIManager,
   View,
 } from "react-native";
-import { TAddComponent } from "../../constants/types";
 
 if (
   Platform.OS === "android" &&
@@ -22,16 +25,16 @@ if (
 const textInputStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    backgroundColor: "white",
     marginVertical: 5,
     flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
-
-  input: {},
 
   buttonContainer: {
     position: "absolute",
-    top: 10,
+    top: forIOS(10, 15),
     right: 25,
     display: "flex",
     flexDirection: "row",
@@ -41,59 +44,52 @@ const textInputStyles = StyleSheet.create({
   },
 
   spacer: {
-    width: 15,
+    width: 20,
+  },
+
+  input: {
+    paddingVertical: 10,
   },
 
   inputWrapper: {
+    flexGrow: 1,
+    width: "100%",
+    paddingHorizontal: 10,
     position: "relative",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#00000020",
     borderRadius: 8,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    // alignItems: "center",
+  },
+
+  floatingBtn: {
+    borderWidth: 1,
+    borderColor: "transparent",
+    backgroundColor: "red",
+    borderRadius: 40,
   },
 });
 
-/* 
+export const AddText = ({ id }: { id: string }) => {
+  const {
+    activeId,
+    setActiveId,
+    inputData,
+    updateTextData,
+    deleteInputDataById,
+  } = useActiveField();
 
-<View style={{ 
-  flex: 1, 
-  justifyContent: 'center', 
-  alignItems: 'center' 
-}}>
-  <View style={{
-    height: 100, 
-    alignSelf: 'stretch',
-    borderRadius: 10,
-    borderWidth: 5,
-    borderColor: 'black',
-    marginHorizontal: 30,
-
-    justifyContent: 'center',
-  }}>
-    <TextInput
-      style={{
-
-      }}
-    />
-  </View>
-</View>
-
-*/
-
-export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
-  const minHeight = Platform.OS === "ios" ? 20 : 40;
-
-  const [height, setHeight] = useState<number>(minHeight);
-  const [content, setContent] = useState<string>("");
-  const { activeId, setActiveId, inputData, setInputData } = useActiveField();
+  const { content, height = 40 } = inputData.find((item) => item.id === id) || {
+    content: "",
+    height: 40,
+  };
 
   const inputRef = useRef<TextInput>(null);
 
   const handleEdit = () => {
     setActiveId(id);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
   };
 
   const handleOnFocus = () => {
@@ -105,25 +101,36 @@ export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
   };
 
   const handleOnBlur = () => {
-    console.log("OnBlur is trigger");
     if (content.trim() === "") {
-      handleRemoveId(id);
+      deleteInputDataById(id);
     } else {
       setActiveId(null);
     }
   };
 
-  useEffect(() => {
-    console.log("Refresh on height changes");
-  }, [height]);
-
   const handleTextChange = (newText: string) => {
-    setContent(newText);
-    // setInputData((prevInputData) =>
-    //   prevInputData.map((item) =>
-    //     item.id === id ? { ...item, content: newText } : item
-    //   )
-    // );
+    updateTextData(id, newText, height);
+  };
+
+  const handleContentSizeChange = (
+    event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
+  ) => {
+    const newHeight =
+      Platform.OS === "ios"
+        ? event.nativeEvent.contentSize.height + 19
+        : event.nativeEvent.contentSize.height;
+
+    if (newHeight != height) {
+      console.log("this function is called");
+
+      if (Platform.OS === "android" && inputRef.current) {
+        inputRef.current.setNativeProps({
+          style: { height: Math.max(40, newHeight) },
+        });
+      } else {
+        // setHeight(Math.max(40, newHeight));
+      }
+    }
   };
 
   return (
@@ -136,22 +143,15 @@ export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
           autoFocus={activeId === id}
           style={[
             textInputStyles.input,
-            { height: Math.max(minHeight, height) },
+            { minHeight: Math.max(40, height) },
+            { color: "black" },
           ]}
+          // selection={{ start: content.length, end: content.length }}
           onFocus={handleOnFocus}
           multiline={true}
           editable={activeId === id}
-          scrollEnabled={true}
-          onContentSizeChange={(event) => {
-            const newHeight =
-              Platform.OS === "ios"
-                ? event.nativeEvent.contentSize.height + 19
-                : event.nativeEvent.contentSize.height;
-
-            if (newHeight !== height) {
-              setHeight(newHeight);
-            }
-          }}
+          scrollEnabled={false}
+          //   onContentSizeChange={handleContentSizeChange}
           placeholder="Type here..."
           placeholderTextColor={"gray"}
           value={content}
@@ -165,13 +165,17 @@ export const AddText = ({ id, handleRemoveId }: TAddComponent) => {
             </Pressable>
           ) : (
             <Pressable onPress={handleEdit}>
-              <Feather name="edit-3" size={20} color="black" />
+              <Feather name="edit-2" size={16} color="black" />
             </Pressable>
           )}
 
           <View style={textInputStyles.spacer} />
-          <Pressable onPress={() => handleRemoveId(id)}>
-            <MaterialIcons name="delete-outline" size={20} color="red" />
+          <Pressable onPress={() => deleteInputDataById(id)}>
+            <MaterialCommunityIcons
+              name="delete-outline"
+              size={20}
+              color="black"
+            />
           </Pressable>
         </View>
       </View>
