@@ -3,7 +3,7 @@ import {
   TComponentData,
   TInputPosition,
 } from "@/constants/types";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -31,7 +31,7 @@ export const getInitialPositions = (
 };
 
 const AnimatedList = () => {
-  const { inputData } = useActiveField();
+  const { inputData } = useLdeEditor();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
     getInitialPositions(inputData)

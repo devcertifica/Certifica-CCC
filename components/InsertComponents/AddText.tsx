@@ -1,5 +1,5 @@
 import { forIOS } from "@/constants/utils";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -76,7 +76,7 @@ export const AddText = ({ id }: { id: string }) => {
     inputData,
     updateTextData,
     deleteInputDataById,
-  } = useActiveField();
+  } = useLdeEditor();
 
   const { content, height = 40 } = inputData.find((item) => item.id === id) || {
     content: "",

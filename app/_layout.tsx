@@ -11,7 +11,7 @@ import "react-native-reanimated";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { ActiveFieldProvider } from "@/context/lde-editor-context";
+import { LdeEditorProvider } from "@/context/lde-editor-context";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SafeAreaView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -39,7 +39,7 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <ActiveFieldProvider>
+          <LdeEditorProvider>
             <ThemeProvider value={DefaultTheme}>
               <Stack screenOptions={{ headerTintColor: "black" }}>
                 <Stack.Screen
@@ -64,7 +64,7 @@ export default function RootLayout() {
                 ></Stack.Screen>
               </Stack>
             </ThemeProvider>
-          </ActiveFieldProvider>
+          </LdeEditorProvider>
         </GestureHandlerRootView>
       </SafeAreaView>
     </SafeAreaProvider>

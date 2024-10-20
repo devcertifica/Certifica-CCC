@@ -1,7 +1,7 @@
 // src/components/ButtonGroup.tsx
 import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
 import { formatSeconds } from "@/constants/utils";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -84,7 +84,7 @@ const ButtonGroup = () => {
     isRecording,
     recordingDuration,
     openSheet,
-  } = useActiveField();
+  } = useLdeEditor();
 
   return (
     <View style={styles.container}>
