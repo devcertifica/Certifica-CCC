@@ -1,4 +1,4 @@
-import AnimatedList from "@/components/AnimatedList";
+import AnimatedList from "@/components/editors/AnimatedList";
 import React from "react";
 import { Text, View } from "react-native";
 

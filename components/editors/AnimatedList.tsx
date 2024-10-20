@@ -3,14 +3,14 @@ import {
   TComponentData,
   TInputPosition,
 } from "@/constants/types";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AddText } from "../InsertComponents/AddText";
 import DragItem from "./DragItem";
 import { AddAudio, AddFoto } from "./InsertComponents";
-import { AddText } from "./InsertComponents/AddText";
 
 export const getInitialPositions = (
   inputData: TComponentData[]
@@ -31,7 +31,7 @@ export const getInitialPositions = (
 };
 
 const AnimatedList = () => {
-  const { inputData } = useActiveField();
+  const { inputData } = useLdeEditor();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
     getInitialPositions(inputData)

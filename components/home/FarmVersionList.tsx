@@ -1,4 +1,4 @@
-import EditorButton from "@/components/editor-buttons";
+import EditorButton from "@/components/editors/editor-buttons";
 import { farmVersionStyle } from "@/components/home/styles";
 import { useRoute } from "@react-navigation/native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";

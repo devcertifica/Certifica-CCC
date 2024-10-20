@@ -1,7 +1,7 @@
 // This is the bottom sheet component for either camera or gallery in image choosing
 // src/components/BottomSheet.tsx
 import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, {
@@ -17,7 +17,7 @@ const BottomSheet = () => {
     handleAddFotoFromGallery,
     animatedBackdropStyle,
     animatedStyle,
-  } = useActiveField();
+  } = useLdeEditor();
 
   if (!sheetVisible) return null;
 

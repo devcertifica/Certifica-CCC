@@ -4,7 +4,7 @@ import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
-import { Color_Pallete, SONG_HEIGHT } from "../constants/constants";
+import { Color_Pallete, HEIGHT } from "../constants/constants";
 
 const ListItem = ({
   item,
@@ -39,7 +39,7 @@ export default ListItem;
 
 export const styles = StyleSheet.create({
   itemContainer: {
-    height: SONG_HEIGHT,
+    height: HEIGHT,
     flexDirection: "row",
     position: "absolute",
     width: "100%",
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Color_Pallete.crystal_white,
   },
   image: {
-    height: SONG_HEIGHT - 20,
+    height: HEIGHT - 20,
     width: "97%",
   },
 });

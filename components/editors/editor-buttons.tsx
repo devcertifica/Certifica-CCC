@@ -7,23 +7,7 @@ type TEditorButton = {
   secondary?: boolean;
 };
 
-const EditorButton = (props: TEditorButton) => {
-  const { onPress, title = "Save", secondary = false } = props;
-  return (
-    <Pressable
-      style={secondary ? styles.secondary : styles.button}
-      onPress={onPress}
-    >
-      <Text style={secondary ? styles.textSecondary : styles.text}>
-        {title}
-      </Text>
-    </Pressable>
-  );
-};
-
-export default EditorButton;
-
-const styles = StyleSheet.create({
+const editorButtonStyle = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -61,3 +45,23 @@ const styles = StyleSheet.create({
     color: "black",
   },
 });
+
+const EditorButton = (props: TEditorButton) => {
+  const { onPress, title = "Save", secondary = false } = props;
+  return (
+    <Pressable
+      style={secondary ? editorButtonStyle.secondary : editorButtonStyle.button}
+      onPress={onPress}
+    >
+      <Text
+        style={
+          secondary ? editorButtonStyle.textSecondary : editorButtonStyle.text
+        }
+      >
+        {title}
+      </Text>
+    </Pressable>
+  );
+};
+
+export default EditorButton;

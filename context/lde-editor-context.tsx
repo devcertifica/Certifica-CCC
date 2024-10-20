@@ -12,7 +12,7 @@ import {
 import uuid from "react-native-uuid";
 
 // Define the props for the ActiveFieldContext
-type ActiveFieldContextProps = {
+type LdeEditorContextProps = {
   activeId: string | null;
   setActiveId: React.Dispatch<React.SetStateAction<string | null>>;
   inputData: TComponentData[];
@@ -35,12 +35,12 @@ type ActiveFieldContextProps = {
 };
 
 // Create context
-export const ActiveFieldContext = React.createContext<
-  ActiveFieldContextProps | undefined
+export const LdeEditorContext = React.createContext<
+  LdeEditorContextProps | undefined
 >(undefined);
 
 // Context provider to manage all editor-related state and logic
-export const ActiveFieldProvider = ({
+export const LdeEditorProvider = ({
   children,
 }: {
   children: React.ReactNode;
@@ -256,7 +256,7 @@ export const ActiveFieldProvider = ({
 
   // Provide all state and functions via context
   return (
-    <ActiveFieldContext.Provider
+    <LdeEditorContext.Provider
       value={{
         activeId,
         setActiveId,
@@ -280,17 +280,15 @@ export const ActiveFieldProvider = ({
       }}
     >
       {children}
-    </ActiveFieldContext.Provider>
+    </LdeEditorContext.Provider>
   );
 };
 
 // Custom hook to access the context
-export const useActiveField = () => {
-  const context = useContext(ActiveFieldContext);
+export const useLdeEditor = () => {
+  const context = useContext(LdeEditorContext);
   if (!context) {
-    throw new Error(
-      "useActiveField must be used within an ActiveFieldProvider"
-    );
+    throw new Error("useLdeEditor must be used within an LdeEditorProvider");
   }
   return context;
 };

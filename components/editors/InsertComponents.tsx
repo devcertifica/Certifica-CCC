@@ -1,5 +1,5 @@
 import { formatSeconds } from "@/constants/utils";
-import { useActiveField } from "@/context/lde-editor-context";
+import { useLdeEditor } from "@/context/lde-editor-context";
 import useAudio from "@/hooks/useAudio";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -30,7 +30,7 @@ const audioStyles = StyleSheet.create({
   },
 });
 export const AddAudio = ({ id }: { id: string }) => {
-  const { inputData, activeId, setActiveId } = useActiveField();
+  const { inputData, activeId, setActiveId } = useLdeEditor();
 
   const data = inputData.find((el) => el.id === id);
 
@@ -132,9 +132,8 @@ const fotoStyles = StyleSheet.create({
     borderRadius: 20,
   },
 });
-
 export const AddFoto = ({ id }: { id: string }) => {
-  const { inputData, deleteInputDataById } = useActiveField();
+  const { inputData, deleteInputDataById } = useLdeEditor();
 
   const { content, height } = inputData.find((item) => item.id === id) || {
     content: "",
