@@ -1,5 +1,5 @@
-import { farmVersionStyle } from "@/app/(home)/styles";
 import EditorButton from "@/components/editor-buttons";
+import { farmVersionStyle } from "@/components/home/styles";
 import { useRoute } from "@react-navigation/native";
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import React, { useEffect } from "react";

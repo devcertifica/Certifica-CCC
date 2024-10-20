@@ -1,18 +1,14 @@
-import { SearchIcon } from "@/components/icons/icons";
+// screens/HomePage.tsx
+import FarmList from "@/components/home/FarmList";
+import FarmSearchBar from "@/components/home/FarmSearchBar";
+import { homeIndexStyles } from "@/components/home/styles";
 import { FarmDataType, farmData } from "@/constants/data";
-import { slugify } from "@/constants/utils";
-import { Link } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Pressable, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { homeIndexStyles, searchResultStyles } from "./styles";
+import { SafeAreaView, View } from "react-native";
 
 const HomePage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [farms, setFarms] = useState(farmData);
   const [filterFarm, setFilterFarm] = useState<FarmDataType[]>(farmData);
-
-  console.log(decodeURI(filterFarm[0].name));
 
   const handleSearch = (query: string) => {
     setSearchValue(query);
@@ -20,9 +16,9 @@ const HomePage = () => {
       setFilterFarm(farmData);
       return;
     }
-    const results = farms.filter((farm) => {
-      return farm.name.toLowerCase().includes(query.toLowerCase());
-    });
+    const results = farmData.filter((farm) =>
+      farm.name.toLowerCase().includes(query.toLowerCase())
+    );
     setFilterFarm(results);
   };
 
@@ -30,44 +26,17 @@ const HomePage = () => {
     <SafeAreaView
       style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 20 }}
     >
-      {/* Search Bar */}
+      {/* SearchBar Component */}
       <View style={homeIndexStyles.container}>
-        <View style={homeIndexStyles.searchBarWrapper}>
-          <TextInput
-            placeholder="Search Farm"
-            style={homeIndexStyles.searchInput}
-            value={searchValue}
-            onChangeText={handleSearch}
-            // onSubmitEditing={(event) => {
-            //   handleSearch(event.nativeEvent.text);
-            // }}
-          />
-          <View style={homeIndexStyles.searchIcon}>
-            <Pressable onPress={() => handleSearch(searchValue)}>
-              <SearchIcon />
-            </Pressable>
-          </View>
-        </View>
-      </View>
-
-      {/* SearchList */}
-      <View style={searchResultStyles.container}>
-        <FlatList
-          style={searchResultStyles.searchResultWrapper}
-          data={filterFarm}
-          contentContainerStyle={{ rowGap: 10 }}
-          renderItem={({ item }) => (
-            <Link
-              href={`/${slugify(item.name)}/details`}
-              style={searchResultStyles.flatTile}
-            >
-              <View style={searchResultStyles.linkContent}>
-                <Text>{item.name}</Text>
-              </View>
-            </Link>
-          )}
+        <FarmSearchBar
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          onSearch={handleSearch}
         />
       </View>
+
+      {/* FarmList Component */}
+      <FarmList farms={filterFarm} />
     </SafeAreaView>
   );
 };
