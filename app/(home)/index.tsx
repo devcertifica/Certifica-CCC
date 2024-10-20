@@ -1,5 +1,6 @@
 import { SearchIcon } from "@/components/icons/icons";
 import { FarmDataType, farmData } from "@/constants/data";
+import { slugify } from "@/constants/utils";
 import { Link } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, Pressable, Text, TextInput, View } from "react-native";
@@ -10,6 +11,8 @@ const HomePage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [farms, setFarms] = useState(farmData);
   const [filterFarm, setFilterFarm] = useState<FarmDataType[]>(farmData);
+
+  console.log(decodeURI(filterFarm[0].name));
 
   const handleSearch = (query: string) => {
     setSearchValue(query);
@@ -54,7 +57,10 @@ const HomePage = () => {
           data={filterFarm}
           contentContainerStyle={{ rowGap: 10 }}
           renderItem={({ item }) => (
-            <Link href={`/${item.name}`} style={searchResultStyles.flatTile}>
+            <Link
+              href={`/${slugify(item.name)}/details`}
+              style={searchResultStyles.flatTile}
+            >
               <View style={searchResultStyles.linkContent}>
                 <Text>{item.name}</Text>
               </View>

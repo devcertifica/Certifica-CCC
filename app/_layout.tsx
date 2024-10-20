@@ -37,7 +37,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <ActiveFieldProvider>
             <ThemeProvider value={DefaultTheme}>
@@ -53,7 +53,6 @@ export default function RootLayout() {
                 <Stack.Screen
                   name="editors/lde-editor"
                   options={{
-                    title: "",
                     headerShown: true,
                     headerTitle: "LDE-Editor",
                   }}

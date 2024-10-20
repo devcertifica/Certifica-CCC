@@ -7,6 +7,7 @@ import { useActiveField } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import DragItem from "./DragItem";
 import { AddAudio, AddFoto } from "./InsertComponents";
 import { AddText } from "./InsertComponents/AddText";
@@ -29,11 +30,7 @@ export const getInitialPositions = (
   return inputPosition;
 };
 
-type TAnimatedList = {
-  removeById: (id: string) => void;
-};
-
-const AnimatedList = ({ removeById: removeById }: TAnimatedList) => {
+const AnimatedList = () => {
   const { inputData } = useActiveField();
 
   const currentInputPositions = useSharedValue<TInputPosition>(
@@ -76,8 +73,6 @@ const AnimatedList = ({ removeById: removeById }: TAnimatedList) => {
             </DragItem>
           );
         })}
-
-        {/* {inputData.map(renderItem)} */}
       </ScrollView>
     </View>
   );

@@ -5,11 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import LdeEditor from "./lde-editor";
 
 const EditorScreen = () => {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LdeEditor />
-    </SafeAreaView>
-  );
+  return <LdeEditor />;
 };
 
 export default EditorScreen;

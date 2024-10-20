@@ -32,6 +32,7 @@ export const homeIndexStyles = StyleSheet.create({
     borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 24,
+
     // @ts-ignore
     outlineStyle: "none",
   },
@@ -67,5 +68,42 @@ export const searchResultStyles = StyleSheet.create({
     flexDirection: "row", // In case you want to add more content beside Text
     justifyContent: "center", // Center the content
     alignItems: "center",
+  },
+});
+
+export const farmVersionStyle = StyleSheet.create({
+  listTileWrapper: {
+    marginBottom: 15,
+    shadowColor: "#171717",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    backgroundColor: "#FAF9F6",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  listTile: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    maxHeight: 78,
+  },
+  titleRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  btnGroups: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  actionRow: {
+    display: "flex",
+    flexDirection: "row",
   },
 });

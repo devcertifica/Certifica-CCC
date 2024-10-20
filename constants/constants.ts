@@ -7,7 +7,6 @@ export const Color_Pallete = {
   silver_storm: "#808080",
 };
 
-export const SONG_HEIGHT = 20;
-export const ANIMATION_DURATION = 600;
-export const MIN_BOUNDRY = 0;
-export const MAX_BOUNDRY = (SONGS.length - 1) * SONG_HEIGHT;
+export const HEIGHT = 175;
+export const OVERDRAG = 20;
+export const BACKDROP_COLOR = "rgba(0, 0, 0, 0.3)";
