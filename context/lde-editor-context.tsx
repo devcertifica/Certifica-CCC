@@ -225,7 +225,6 @@ export const LdeEditorProvider = ({
   };
 
   const openSheet = () => {
-    console.log("Opening Open sheet");
     setSheetVisible(true);
     backdropOpacity.value = withTiming(1, { duration: 150 });
     translateY.value = withTiming(0, { duration: 200 });

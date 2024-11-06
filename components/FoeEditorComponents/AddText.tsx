@@ -121,26 +121,25 @@ export const AddText = ({
     updateTextData(id, newText, height);
   };
 
-  const handleContentSizeChange = (
-    event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
-  ) => {
-    const newHeight =
-      Platform.OS === "ios"
-        ? event.nativeEvent.contentSize.height + 19
-        : event.nativeEvent.contentSize.height;
+  // const handleContentSizeChange = (
+  //   event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
+  // ) => {
+  //   const newHeight =
+  //     Platform.OS === "ios"
+  //       ? event.nativeEvent.contentSize.height + 19
+  //       : event.nativeEvent.contentSize.height;
 
-    if (newHeight != height) {
-      console.log("this function is called");
+  //   if (newHeight != height) {
 
-      if (Platform.OS === "android" && inputRef.current) {
-        inputRef.current.setNativeProps({
-          style: { height: Math.max(40, newHeight) },
-        });
-      } else {
-        // setHeight(Math.max(40, newHeight));
-      }
-    }
-  };
+  //     if (Platform.OS === "android" && inputRef.current) {
+  //       inputRef.current.setNativeProps({
+  //         style: { height: Math.max(40, newHeight) },
+  //       });
+  //     } else {
+  //       // setHeight(Math.max(40, newHeight));
+  //     }
+  //   }
+  // };
 
   return (
     <View style={[textInputStyles.container]}>

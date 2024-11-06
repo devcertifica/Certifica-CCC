@@ -6,7 +6,6 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -37,13 +36,18 @@ export default function RootLayout() {
             <FoeEditorProvider>
               <Stack
                 screenOptions={{
+                  statusBarTranslucent: false,
                   contentStyle: { backgroundColor: ThemeColors.primaryWhite },
                   headerTintColor: "black",
                 }}
               >
                 <Stack.Screen
                   name="(home)/index"
-                  options={{ headerShown: false, headerTitle: "" }}
+                  options={{
+                    headerShown: true,
+                    headerTitle: "Welcome Certifica 👋",
+                    headerTitleAlign: "center",
+                  }}
                 ></Stack.Screen>
 
                 <Stack.Screen
@@ -51,10 +55,9 @@ export default function RootLayout() {
                   options={({ route }) => {
                     const { farmName } = route.params as { farmName: string };
                     return {
-                      statusBarHeight:
-                        Platform.OS === "android" ? 0 : undefined,
-                      headerShown: true,
+                      headerBackTitleVisible: false,
                       headerTitle: deslugify(farmName),
+                      headerShown: true,
                     };
                   }}
                 ></Stack.Screen>

@@ -121,8 +121,6 @@ export const AddText = ({ id }: { id: string }) => {
         : event.nativeEvent.contentSize.height;
 
     if (newHeight != height) {
-      console.log("this function is called");
-
       if (Platform.OS === "android" && inputRef.current) {
         inputRef.current.setNativeProps({
           style: { height: Math.max(40, newHeight) },
