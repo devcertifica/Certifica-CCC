@@ -1,12 +1,12 @@
 import DragItem from "@/components/editors/DragItem";
-import { AddAudio } from "@/components/FoeEditorComponents/AddAudio";
-import { AddFoto } from "@/components/FoeEditorComponents/AddFoto";
-import { AddText } from "@/components/FoeEditorComponents/AddText";
 import { TComponentData } from "@/constants/types";
 import { TabData, useFoeEditor } from "@/context/foe-editor-context";
 import { useIsFocused, useNavigationState } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
+import { AddAudio } from "../editors/AddAudio";
+import { AddFoto } from "../editors/AddFoto";
+import { AddText } from "../editors/AddText";
 
 const FoeEditorTabView = ({ name }: { name: keyof TabData }) => {
   const { setActiveTabName, activeTabName } = useFoeEditor();

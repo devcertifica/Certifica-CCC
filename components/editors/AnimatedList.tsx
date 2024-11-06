@@ -6,9 +6,9 @@ import {
 import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { AddAudio } from "../InsertComponents/AddAudio";
-import { AddFoto } from "../InsertComponents/AddFoto";
-import { AddText } from "../InsertComponents/AddText";
+import { AddAudio } from "./AddAudio";
+import { AddFoto } from "./AddFoto";
+import { AddText } from "./AddText";
 import DragItem from "./DragItem";
 
 const AnimatedList = () => {
@@ -17,11 +17,17 @@ const AnimatedList = () => {
   const renderItem = (data: TComponentData) => {
     switch (data.type) {
       case "text":
-        return <AddText id={data.id} key={data.id}></AddText>;
+        return (
+          <AddText id={data.id} key={data.id} activeTabName="lde"></AddText>
+        );
       case "audio":
-        return <AddAudio id={data.id} key={data.id}></AddAudio>;
+        return (
+          <AddAudio id={data.id} key={data.id} activeTabName="lde"></AddAudio>
+        );
       case "foto":
-        return <AddFoto key={data.id} id={data.id}></AddFoto>;
+        return (
+          <AddFoto key={data.id} id={data.id} activeTabName="lde"></AddFoto>
+        );
       default:
         return null;
     }

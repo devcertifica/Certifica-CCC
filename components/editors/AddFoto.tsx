@@ -1,4 +1,5 @@
 import { formatSeconds } from "@/constants/utils";
+import { TabData, useFoeEditor } from "@/context/foe-editor-context";
 import { useLdeEditor } from "@/context/lde-editor-context";
 import useAudio from "@/hooks/useAudio";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -34,10 +35,24 @@ const fotoStyles = StyleSheet.create({
     borderRadius: 20,
   },
 });
-export const AddFoto = ({ id }: { id: string }) => {
-  const { inputData, deleteInputDataById } = useLdeEditor();
+export const AddFoto = ({
+  id,
+  activeTabName,
+}: {
+  id: string;
+  activeTabName: keyof TabData | "lde";
+}) => {
+  const { tabData, deleteInputDataById: deleteFoeDataById } = useFoeEditor();
+  const { inputData, deleteInputDataById: deleteLdeDataById } = useLdeEditor();
 
-  const { content, height } = inputData.find((item) => item.id === id) || {
+  // Select data and delete function based on `activeTabName`
+  const dataSource =
+    activeTabName === "lde" ? inputData : tabData[activeTabName];
+  const deleteInputDataById =
+    activeTabName === "lde" ? deleteLdeDataById : deleteFoeDataById;
+
+  // Find item by id in the selected data source
+  const { content, height } = dataSource.find((item) => item.id === id) || {
     content: "",
     height: 500,
   };

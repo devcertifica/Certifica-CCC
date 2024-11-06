@@ -15,7 +15,6 @@ import FeatherIcon from "react-native-vector-icons/Feather";
 
 export const FarmVersionListItem = () => {
   const { farmName } = useLocalSearchParams();
-  console.log(farmName);
   const version = "1.1.1.1";
 
   const router = useRouter();

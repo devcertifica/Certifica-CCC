@@ -185,6 +185,17 @@ export const FoeEditorProvider = ({
     if (!hasPermission) return;
 
     try {
+      // Set audio mode to allow recording
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        interruptionModeIOS: InterruptionModeIOS.DuckOthers,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
+        playThroughEarpieceAndroid: false,
+        staysActiveInBackground: true,
+      });
+
       const recording = new Audio.Recording();
       await recording.prepareToRecordAsync({
         android: {
