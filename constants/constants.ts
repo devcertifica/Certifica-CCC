@@ -1,5 +1,3 @@
-import { SONGS } from "./data";
-
 export const Color_Pallete = {
   metal_black: "rgba(0, 0, 0,0.8)",
   night_shadow: "#1C1C1C",
