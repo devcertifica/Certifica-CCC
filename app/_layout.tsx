@@ -51,12 +51,24 @@ export default function RootLayout() {
                 ></Stack.Screen>
 
                 <Stack.Screen
-                  name="(home)/[farmName]/details"
+                  name="(home)/[farmName]/details/index"
                   options={({ route }) => {
                     const { farmName } = route.params as { farmName: string };
                     return {
                       headerBackTitleVisible: false,
                       headerTitle: deslugify(farmName),
+                      headerShown: true,
+                    };
+                  }}
+                ></Stack.Screen>
+
+                <Stack.Screen
+                  name="(home)/[farmName]/details/[lawNo]"
+                  options={({ route }) => {
+                    const { lawNo } = route.params as { lawNo: string };
+                    return {
+                      headerBackTitleVisible: false,
+                      headerTitle: lawNo,
                       headerShown: true,
                     };
                   }}

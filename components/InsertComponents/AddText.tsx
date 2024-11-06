@@ -30,17 +30,17 @@ const textInputStyles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    position: "relative",
   },
 
   buttonContainer: {
     position: "absolute",
-    top: forIOS(10, 15),
-    right: 25,
+    right: 15,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 20,
+    height: "100%",
   },
 
   spacer: {
@@ -55,17 +55,18 @@ const textInputStyles = StyleSheet.create({
     flexGrow: 1,
     width: "100%",
     paddingHorizontal: 10,
-    position: "relative",
     borderWidth: 1,
     borderColor: "#00000020",
     borderRadius: 8,
   },
 
   floatingBtn: {
-    borderWidth: 1,
-    borderColor: "transparent",
-    backgroundColor: "red",
-    borderRadius: 40,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
   },
 });
 
@@ -158,17 +159,19 @@ export const AddText = ({ id }: { id: string }) => {
 
         <View style={textInputStyles.buttonContainer}>
           {activeId === id ? (
-            <Pressable onPress={handleSave}>
+            <Pressable onPress={handleSave} style={textInputStyles.floatingBtn}>
               <MaterialIcons name="done" size={20} color="green" />
             </Pressable>
           ) : (
-            <Pressable onPress={handleEdit}>
+            <Pressable onPress={handleEdit} style={textInputStyles.floatingBtn}>
               <Feather name="edit-2" size={16} color="black" />
             </Pressable>
           )}
 
-          <View style={textInputStyles.spacer} />
-          <Pressable onPress={() => deleteInputDataById(id)}>
+          <Pressable
+            onPress={() => deleteInputDataById(id)}
+            style={textInputStyles.floatingBtn}
+          >
             <MaterialCommunityIcons
               name="delete-outline"
               size={20}
