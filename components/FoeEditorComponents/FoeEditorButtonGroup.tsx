@@ -1,6 +1,7 @@
 // src/components/ButtonGroup.tsx
 import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
 import { formatSeconds } from "@/constants/utils";
+import { useFoeEditor } from "@/context/foe-editor-context";
 import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -68,16 +69,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const ButtonGroup = () => {
+const FoeEditorButtonGroup = () => {
   const {
     handleAddText,
-    handleAddFotoFromGallery,
     handleLongPressStart,
     handleReleaseStop,
     isRecording,
     recordingDuration,
     openSheet,
-  } = useLdeEditor();
+  } = useFoeEditor();
 
   return (
     <View style={styles.container}>
@@ -134,4 +134,4 @@ const ButtonGroup = () => {
   );
 };
 
-export default ButtonGroup;
+export default FoeEditorButtonGroup;

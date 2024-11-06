@@ -12,7 +12,6 @@ export const FarmVersionListItem = () => {
   return (
     <View style={farmVersionStyle.listTileWrapper}>
       <View style={farmVersionStyle.listTile}>
-        {/*  */}
         <View style={farmVersionStyle.titleRow}>
           <Text style={{ fontSize: 16, fontWeight: "700", marginRight: 10 }}>
             1.1.1.1
@@ -33,7 +32,12 @@ export const FarmVersionListItem = () => {
             }}
           ></EditorButton>
           <View style={{ width: 10 }}></View>
-          <EditorButton title="Open FOE" onPress={() => {}}></EditorButton>
+          <EditorButton
+            title="Open FOE"
+            onPress={() => {
+              router.push("/editors/foe-editor");
+            }}
+          ></EditorButton>
         </View>
 
         <View

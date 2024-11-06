@@ -7,6 +7,6 @@ export const Color_Pallete = {
   silver_storm: "#808080",
 };
 
-export const HEIGHT = 175;
+export const HEIGHT = 125;
 export const OVERDRAG = 20;
 export const BACKDROP_COLOR = "rgba(0, 0, 0, 0.3)";

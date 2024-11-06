@@ -21,7 +21,9 @@ const FarmSearchBar: React.FC<FarmSearchBar> = ({
         placeholder="Search Farm"
         style={homeIndexStyles.searchInput}
         value={searchValue}
-        onChangeText={setSearchValue}
+        onChangeText={(text) => {
+          onSearch(text);
+        }}
         onSubmitEditing={() => onSearch(searchValue)}
       />
       <View style={homeIndexStyles.searchIcon}>

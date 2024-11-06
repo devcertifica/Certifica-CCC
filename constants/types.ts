@@ -8,9 +8,9 @@ export type TItem = {
 
 export type TListItem = {
   item: TComponentData;
-  isDragging: SharedValue<number>;
-  draggedItemId: SharedValue<NullableNumber>;
-  currentInputPositions: SharedValue<TInputPosition>;
+  // isDragging: SharedValue<number>;
+  // draggedItemId: SharedValue<NullableNumber>;
+  // currentInputPositions: SharedValue<TInputPosition>;
   children: React.ReactNode;
 };
 

@@ -1,3 +1,4 @@
+import { ThemeColors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export const homeIndexStyles = StyleSheet.create({
@@ -10,7 +11,7 @@ export const homeIndexStyles = StyleSheet.create({
   searchBarWrapper: {
     width: "80%",
     height: 45,
-    backgroundColor: "#FAF9F6",
+    backgroundColor: ThemeColors.offWhite,
     borderRadius: 24,
     paddingHorizontal: 20,
     display: "flex",
@@ -28,11 +29,10 @@ export const homeIndexStyles = StyleSheet.create({
     height: "100%",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: "#FAF9F6",
+    backgroundColor: ThemeColors.offWhite,
     borderColor: "transparent",
     borderWidth: 0,
     borderRadius: 24,
-
     // @ts-ignore
     outlineStyle: "none",
   },
@@ -42,7 +42,7 @@ export const searchResultStyles = StyleSheet.create({
   container: {
     marginTop: 25,
     width: "100%",
-    height: "65%",
+    height: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -59,7 +59,7 @@ export const searchResultStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#FAF9F6",
+    backgroundColor: ThemeColors.offWhite,
   },
   linkContent: {
     height: 40,
@@ -78,7 +78,7 @@ export const farmVersionStyle = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    backgroundColor: "#FAF9F6",
+    backgroundColor: ThemeColors.offWhite,
     paddingHorizontal: 15,
     paddingVertical: 10,
     display: "flex",

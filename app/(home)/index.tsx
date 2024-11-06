@@ -4,7 +4,8 @@ import FarmSearchBar from "@/components/home/FarmSearchBar";
 import { homeIndexStyles } from "@/components/home/styles";
 import { FarmDataType, farmData } from "@/constants/data";
 import React, { useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import { Platform, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HomePage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -22,9 +23,15 @@ const HomePage = () => {
     setFilterFarm(results);
   };
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView
-      style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 20 }}
+    <View
+      style={{
+        paddingHorizontal: 10,
+        paddingVertical: 20,
+        marginBottom: insets.bottom + 100,
+      }}
     >
       {/* SearchBar Component */}
       <View style={homeIndexStyles.container}>
@@ -34,10 +41,10 @@ const HomePage = () => {
           onSearch={handleSearch}
         />
       </View>
-
       {/* FarmList Component */}
       <FarmList farms={filterFarm} />
-    </SafeAreaView>
+      {/* </SafeAreaView> */}
+    </View>
   );
 };
 
