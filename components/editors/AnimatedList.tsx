@@ -2,7 +2,7 @@ import {
   NullableNumber,
   TComponentData,
   TInputPosition,
-} from "@/constants/types";
+} from "@/constants/ui-props-types";
 import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";

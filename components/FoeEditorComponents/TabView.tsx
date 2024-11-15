@@ -1,5 +1,5 @@
 import DragItem from "@/components/editors/DragItem";
-import { TComponentData } from "@/constants/types";
+import { TComponentData } from "@/constants/ui-props-types";
 import { TabData, useFoeEditor } from "@/context/foe-editor-context";
 import { useIsFocused, useNavigationState } from "@react-navigation/native";
 import React, { useEffect } from "react";

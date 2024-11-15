@@ -1,5 +1,5 @@
 import { HEIGHT } from "@/constants/constants";
-import { TComponentData } from "@/constants/types";
+import { TComponentData } from "@/constants/ui-props-types";
 import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
 import React, { useContext, useState } from "react";

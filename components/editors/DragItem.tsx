@@ -1,4 +1,4 @@
-import { TListItem } from "@/constants/types";
+import { TListItem } from "@/constants/ui-props-types";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 

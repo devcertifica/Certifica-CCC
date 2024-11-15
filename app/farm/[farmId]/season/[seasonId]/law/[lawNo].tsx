@@ -1,10 +1,23 @@
 import { ThemeColors } from "@/constants/Colors";
+import { TLaw } from "@/constants/data";
+import { useFarmData } from "@/context/farm-data-context";
 import { useLocalSearchParams } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const LawDetails = () => {
   const { lawNo } = useLocalSearchParams();
+  const { laws } = useFarmData();
+
+  const [selectedLaw, setSelectedLaw] = useState<TLaw>();
+
+  console.log(laws);
+
+  useEffect(() => {
+    setSelectedLaw(laws.find((law) => law.number.match(lawNo.toString())));
+
+    console.log(selectedLaw);
+  }, [lawNo]);
 
   return (
     <View style={LawDetailsStyle.container}>
@@ -16,17 +29,7 @@ const LawDetails = () => {
 
       <View style={LawDetailsStyle.paragraphContainer}>
         <Text style={LawDetailsStyle.paragraph}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-          laborum illum qui impedit.
-        </Text>
-
-        <Text style={LawDetailsStyle.paragraph}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore,
-          excepturi sunt. Magni laudantium, expedita ad nobis debitis sit ullam
-          nemo quam deserunt enim quae rerum odit in ipsum numquam ipsam? Illo
-          minus cumque laborum laudantium sequi blanditiis eum exercitationem
-          saepe molestias quo fuga enim aspernatur quibusdam explicabo, optio ad
-          autem.
+          {selectedLaw?.requirement}
         </Text>
       </View>
     </View>
@@ -56,7 +59,7 @@ const LawDetailsStyle = StyleSheet.create({
   },
   paragraph: {
     fontSize: 16,
-    textAlign: "center",
+    textAlign: "justify",
     marginBottom: 10,
     paddingHorizontal: 10,
   },

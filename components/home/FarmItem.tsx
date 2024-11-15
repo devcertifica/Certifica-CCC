@@ -1,22 +1,26 @@
 // components/FarmItem.tsx
-import { slugify } from "@/constants/utils";
+import { TFarm } from "@/constants/data";
+import { deslugify, slugify } from "@/constants/utils";
 import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
 import { searchResultStyles } from "./styles";
 
 interface FarmItemProps {
-  name: string;
+  farm: TFarm;
 }
 
-const FarmItem: React.FC<FarmItemProps> = ({ name }) => {
+const FarmItem: React.FC<FarmItemProps> = ({ farm }) => {
   return (
     <Link
-      href={`/${slugify(name)}/details`}
+      href={{
+        pathname: "/farm/[farmId]",
+        params: { farmId: farm.id, name: slugify(farm.name) },
+      }}
       style={searchResultStyles.flatTile}
     >
       <View style={searchResultStyles.linkContent}>
-        <Text>{name}</Text>
+        <Text>{farm.name}</Text>
       </View>
     </Link>
   );

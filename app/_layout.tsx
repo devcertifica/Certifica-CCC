@@ -1,5 +1,6 @@
 import { ThemeColors } from "@/constants/Colors";
 import { deslugify } from "@/constants/utils";
+import { FarmDataProvider } from "@/context/farm-data-context";
 import { FoeEditorProvider } from "@/context/foe-editor-context";
 import { LdeEditorProvider } from "@/context/lde-editor-context";
 import { useFonts } from "expo-font";
@@ -32,71 +33,79 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <LdeEditorProvider>
-            <FoeEditorProvider>
-              <Stack
-                screenOptions={{
-                  statusBarTranslucent: false,
-                  contentStyle: { backgroundColor: ThemeColors.primaryWhite },
-                  headerTintColor: "black",
-                }}
-              >
-                <Stack.Screen
-                  name="(home)/index"
-                  options={{
-                    headerShown: true,
-                    headerTitle: "Welcome Certifica 👋",
-                    headerTitleAlign: "center",
+          <FarmDataProvider>
+            <LdeEditorProvider>
+              <FoeEditorProvider>
+                <Stack
+                  screenOptions={{
+                    statusBarTranslucent: false,
+                    contentStyle: { backgroundColor: ThemeColors.primaryWhite },
+                    headerTintColor: "black",
                   }}
-                ></Stack.Screen>
-
-                <Stack.Screen
-                  name="(home)/[farmName]/details/index"
-                  options={({ route }) => {
-                    const { farmName } = route.params as { farmName: string };
-                    return {
-                      headerBackTitleVisible: false,
-                      headerTitle: deslugify(farmName),
+                >
+                  <Stack.Screen
+                    name="index"
+                    options={{
                       headerShown: true,
-                    };
-                  }}
-                ></Stack.Screen>
-
-                <Stack.Screen
-                  name="(home)/[farmName]/details/[lawNo]"
-                  options={({ route }) => {
-                    const { lawNo } = route.params as { lawNo: string };
-                    return {
-                      headerBackTitleVisible: false,
-                      headerTitle: lawNo,
+                      headerTitle: "Welcome Certifica 👋",
+                      headerTitleAlign: "center",
+                    }}
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="farm/[farmId]/index"
+                    options={({ route }) => {
+                      const { name, farmId } = route.params as {
+                        farmId: number;
+                        name: string;
+                      };
+                      return {
+                        headerBackTitleVisible: true,
+                        headerTitle: deslugify(name),
+                        headerShown: true,
+                      };
+                    }}
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="farm/[farmId]/season/[seasonId]/index"
+                    options={({ route }) => {
+                      const { seasonId } = route.params as { seasonId: string };
+                      return {
+                        headerBackTitleVisible: false,
+                        headerTitleAlign: "center",
+                        headerTitle: `Season - ${seasonId}`,
+                        headerShown: true,
+                      };
+                    }}
+                  />
+                  <Stack.Screen
+                    name="farm/[farmId]/season/[seasonId]/law/[lawNo]"
+                    options={({ route }) => {
+                      const { lawNo } = route.params as { lawNo: string };
+                      return {
+                        headerBackTitleVisible: false,
+                        headerTitle: lawNo,
+                        headerShown: true,
+                      };
+                    }}
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="editors/lde-editor"
+                    options={{
                       headerShown: true,
-                    };
-                  }}
-                ></Stack.Screen>
-
-                <Stack.Screen
-                  name="editors/lde-editor"
-                  options={{
-                    headerShown: true,
-                    headerTitle: "LDE-Editor",
-                  }}
-                ></Stack.Screen>
-
-                <Stack.Screen
-                  name="editors/foe-editor/(tabs)"
-                  options={{
-                    headerShown: true,
-                    headerTitle: "FOE-Editor",
-                  }}
-                ></Stack.Screen>
-
-                <Stack.Screen
-                  name="test/test"
-                  options={{ headerTitle: "Test Page", headerShown: true }}
-                ></Stack.Screen>
-              </Stack>
-            </FoeEditorProvider>
-          </LdeEditorProvider>
+                      headerTitle: "LDE-Editor",
+                    }}
+                  ></Stack.Screen>
+                  <Stack.Screen
+                    name="editors/foe-editor/(tabs)"
+                    options={{
+                      headerShown: true,
+                      headerTitle: "FOE-Editor",
+                    }}
+                  ></Stack.Screen>
+                </Stack>
+              </FoeEditorProvider>
+            </LdeEditorProvider>
+          </FarmDataProvider>
         </GestureHandlerRootView>
       </SafeAreaView>
     </SafeAreaProvider>

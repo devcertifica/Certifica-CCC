@@ -33,4 +33,7 @@ export const SCALE_DURATION = 200;
 export const ThemeColors = {
   primaryWhite: "#FFFFFE",
   offWhite: "#F3F4F8",
+  paleBlack: "#6666661A",
+  bgBlack: "#000000 ",
+  black: "#000000",
 };
