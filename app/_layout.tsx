@@ -59,7 +59,7 @@ export default function RootLayout() {
                         name: string;
                       };
                       return {
-                        headerBackTitleVisible: true,
+                        headerBackTitleVisible: false,
                         headerTitle: deslugify(name),
                         headerShown: true,
                       };
@@ -91,6 +91,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="editors/lde-editor"
                     options={{
+                      headerBackTitleVisible: false,
                       headerShown: true,
                       headerTitle: "LDE-Editor",
                     }}
@@ -98,6 +99,7 @@ export default function RootLayout() {
                   <Stack.Screen
                     name="editors/foe-editor/(tabs)"
                     options={{
+                      headerBackTitleVisible: false,
                       headerShown: true,
                       headerTitle: "FOE-Editor",
                     }}

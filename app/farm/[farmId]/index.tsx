@@ -13,6 +13,14 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   seasonContainer: {
+    flexGrow: 1,
+    width: "100%",
+    height: 40,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+
     backgroundColor: ThemeColors.offWhite,
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -31,7 +39,6 @@ const FarmDetailsPage = () => {
         const response = await axios.get(
           `http://localhost:8080/farm/${farmId}/seasons`
         );
-        console.log("Farm Details Page => ", response.data.seasons);
         setSeasons(response.data.seasons);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,9 +61,7 @@ const FarmDetailsPage = () => {
             key={index}
             style={styles.seasonContainer}
           >
-            <View>
-              <Text>Season {season.id}</Text>
-            </View>
+            <Text>Season {season.id}</Text>
           </Link>
         );
       })}

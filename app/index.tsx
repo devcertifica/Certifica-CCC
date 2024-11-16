@@ -32,7 +32,6 @@ const HomePage = () => {
         const response = await axios.get(
           "http://localhost:8080/consultant/1/farms"
         );
-        console.log(response.data);
         setFilterFarm(response.data.farms);
         setOriginFarm(response.data.farms);
       } catch (error) {

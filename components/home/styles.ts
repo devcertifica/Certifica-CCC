@@ -74,10 +74,10 @@ export const searchResultStyles = StyleSheet.create({
 export const farmVersionStyle = StyleSheet.create({
   listTileWrapper: {
     marginVertical: 7.5,
-    // shadowColor: "#171717",
-    // shadowOffset: { width: 2, height: 2 },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 4,
+    shadowColor: "#171717",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
     backgroundColor: "white",
     // backgroundColor: "red",
     marginHorizontal: 10,
@@ -86,17 +86,17 @@ export const farmVersionStyle = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderRadius: 6,
-    borderColor: ThemeColors.paleBlack,
-    overflow: "hidden",
+    borderColor: ThemeColors.black10,
   },
   listTile: {
     width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    maxHeight: 78,
+    maxHeight: 65,
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    backgroundColor: ThemeColors.offWhite,
   },
   titleRow: {
     display: "flex",
@@ -113,5 +113,6 @@ export const farmVersionStyle = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     width: "100%",
+    overflow: "hidden",
   },
 });

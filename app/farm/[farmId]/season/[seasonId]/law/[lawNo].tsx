@@ -11,12 +11,8 @@ const LawDetails = () => {
 
   const [selectedLaw, setSelectedLaw] = useState<TLaw>();
 
-  console.log(laws);
-
   useEffect(() => {
     setSelectedLaw(laws.find((law) => law.number.match(lawNo.toString())));
-
-    console.log(selectedLaw);
   }, [lawNo]);
 
   return (

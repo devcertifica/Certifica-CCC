@@ -3,7 +3,7 @@ import { TLaw } from "@/constants/data";
 import { useFarmData } from "@/context/farm-data-context";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 
 const LawsPage = () => {
   const { laws, setLaws } = useFarmData();
@@ -12,12 +12,10 @@ const LawsPage = () => {
     const fetchData = async () => {
       const response = await axios.get(`http://localhost:8080/season/1/laws`);
 
-      console.log(response.data.laws);
-
       const sortedLaws = response.data.laws.sort(
         (a: TLaw, b: TLaw) => b.id - a.id
       );
-
+      // console.log(laws);
       setLaws(sortedLaws);
     };
 
@@ -26,11 +24,11 @@ const LawsPage = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ height: "auto" }}>
-        {laws.map((law) => {
-          return <FarmVersionListItem key={law.number} law={law} />;
-        })}
-      </ScrollView>
+      <FlatList
+        data={laws}
+        keyExtractor={(item) => item.number.toString()} // Ensure keys are strings
+        renderItem={({ item }) => <FarmVersionListItem law={item} />}
+      />
     </View>
   );
 };

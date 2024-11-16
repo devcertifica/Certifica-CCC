@@ -82,19 +82,22 @@ const editorButtonStyle = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    paddingVertical: 4,
-    borderTopWidth: 1,
-    borderColor: ThemeColors.paleBlack,
+    paddingVertical: 8,
+    borderTopWidth: 2,
+    borderColor: ThemeColors.black10,
+    borderRightWidth: 2,
   },
 
   secondary: {
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
-    paddingVertical: 4,
-    borderTopWidth: 1,
-    borderColor: ThemeColors.paleBlack,
-    backgroundColor: ThemeColors.offWhite,
+    paddingVertical: 8,
+    borderTopWidth: 2,
+    borderColor: ThemeColors.black10,
+    // backgroundColor: ThemeColors.offWhite,
+    borderRightWidth: 0,
+    borderBottomEndRadius: 4, // to remove the overflowing angle
   },
 
   text: {
