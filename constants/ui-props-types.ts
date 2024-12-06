@@ -1,5 +1,3 @@
-import { SharedValue } from "react-native-reanimated";
-
 export type TItem = {
   id: number;
   type: "text" | "foto" | "audio";

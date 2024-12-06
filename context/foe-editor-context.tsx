@@ -1,4 +1,3 @@
-import { HEIGHT } from "@/constants/constants";
 import { TComponentData } from "@/constants/ui-props-types";
 import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
@@ -42,6 +41,10 @@ type FoeEditorContextProps = {
   animatedStyle: any;
   animatedBackdropStyle: any;
 };
+
+export const HEIGHT = 125;
+export const OVERDRAG = 20;
+export const BACKDROP_COLOR = "rgba(0, 0, 0, 0.3)";
 
 // Create context
 export const FoeEditorContext = React.createContext<

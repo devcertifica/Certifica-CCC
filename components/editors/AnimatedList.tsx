@@ -34,7 +34,7 @@ const AnimatedList = () => {
   };
 
   return (
-    <View style={styles.listContainer}>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <ScrollView contentContainerStyle={{ height: "auto" }}>
         {inputData.map((data, index) => {
           return (
@@ -49,10 +49,3 @@ const AnimatedList = () => {
 };
 
 export default AnimatedList;
-
-export const styles = StyleSheet.create({
-  listContainer: {
-    backgroundColor: "white",
-    flex: 1,
-  },
-});

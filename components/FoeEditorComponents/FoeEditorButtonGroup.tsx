@@ -1,5 +1,4 @@
 // src/components/ButtonGroup.tsx
-import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
 import { formatSeconds } from "@/constants/utils";
 import { useFoeEditor } from "@/context/foe-editor-context";
 import { useLdeEditor } from "@/context/lde-editor-context";
@@ -32,40 +31,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     textAlign: "center",
-  },
-
-  sheetVisible: {
-    // backgroundColor: "white",
-    padding: 16,
-    height: HEIGHT,
-    width: "100%",
-    position: "absolute",
-    bottom: -OVERDRAG * 1.1,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    zIndex: 1,
-
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  sheetButton: {
-    backgroundColor: "white",
-    borderRadius: 20,
-    height: 60,
-    width: "50%",
-    marginBottom: 15,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: BACKDROP_COLOR,
-    zIndex: 1,
   },
 });
 

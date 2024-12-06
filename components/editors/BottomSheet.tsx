@@ -1,13 +1,7 @@
-// This is the bottom sheet component for either camera or gallery in image choosing
-// src/components/BottomSheet.tsx
-import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
 import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 const BottomSheet = () => {
   const {
@@ -23,19 +17,21 @@ const BottomSheet = () => {
 
   return (
     <>
-      <Pressable style={styles.backdrop} onPress={closeSheet}>
-        <Animated.View style={[styles.backdrop, animatedBackdropStyle]} />
+      <Pressable style={BottomSheetStyles.backdrop} onPress={closeSheet}>
+        <Animated.View
+          style={[BottomSheetStyles.backdrop, animatedBackdropStyle]}
+        />
       </Pressable>
-      <Animated.View style={[styles.sheetVisible, animatedStyle]}>
+      <Animated.View style={[BottomSheetStyles.sheetVisible, animatedStyle]}>
         <Pressable
           onPress={() => handleAddFotoFromCamera()}
-          style={styles.sheetButton}
+          style={BottomSheetStyles.sheetButton}
         >
           <Text>Camera</Text>
         </Pressable>
         <Pressable
           onPress={() => handleAddFotoFromGallery()}
-          style={styles.sheetButton}
+          style={BottomSheetStyles.sheetButton}
         >
           <Text>Gallery</Text>
         </Pressable>
@@ -45,7 +41,13 @@ const BottomSheet = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export default BottomSheet;
+
+export const HEIGHT = 125;
+export const OVERDRAG = 20;
+export const BACKDROP_COLOR = "rgba(0, 0, 0, 0.3)";
+
+export const BottomSheetStyles = StyleSheet.create({
   container: {
     flex: 1,
     display: "flex",
@@ -114,5 +116,3 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
-
-export default BottomSheet;

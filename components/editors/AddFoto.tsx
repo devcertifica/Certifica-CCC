@@ -8,33 +8,6 @@ import React, { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
-const fotoStyles = StyleSheet.create({
-  container: {
-    width: "100%",
-    position: "relative",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  image: {
-    resizeMode: "contain",
-    width: "100%",
-  },
-  buttonsGroup: {
-    position: "absolute",
-    top: 25,
-    right: 25,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: 40,
-  },
-  buttonContainer: {
-    backgroundColor: "#FFFFFF50",
-    padding: 10,
-    borderRadius: 20,
-  },
-});
 export const AddFoto = ({
   id,
   activeTabName,
@@ -96,3 +69,31 @@ export const AddFoto = ({
     </View>
   );
 };
+
+const fotoStyles = StyleSheet.create({
+  container: {
+    width: "100%",
+    position: "relative",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  image: {
+    resizeMode: "contain",
+    width: "100%",
+  },
+  buttonsGroup: {
+    position: "absolute",
+    top: 25,
+    right: 25,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 40,
+  },
+  buttonContainer: {
+    backgroundColor: "#FFFFFF50",
+    padding: 10,
+    borderRadius: 20,
+  },
+});

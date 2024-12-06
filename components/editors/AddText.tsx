@@ -20,56 +20,6 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const textInputStyles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 10,
-    marginVertical: 5,
-    flexGrow: 1,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-  },
-
-  buttonContainer: {
-    position: "absolute",
-    right: 15,
-    top: 0,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: "100%",
-    maxHeight: 40,
-  },
-
-  spacer: {
-    width: 20,
-  },
-
-  input: {
-    paddingVertical: 10,
-  },
-
-  inputWrapper: {
-    flexGrow: 1,
-    width: "100%",
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "#00000020",
-    borderRadius: 8,
-  },
-
-  floatingBtn: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 10,
-  },
-});
-
 export const AddText = ({
   id,
   activeTabName,
@@ -187,3 +137,53 @@ export const AddText = ({
     </View>
   );
 };
+
+const textInputStyles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+
+  buttonContainer: {
+    position: "absolute",
+    right: 15,
+    top: 0,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+    maxHeight: 40,
+  },
+
+  spacer: {
+    width: 20,
+  },
+
+  input: {
+    paddingVertical: 10,
+  },
+
+  inputWrapper: {
+    flexGrow: 1,
+    width: "100%",
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#00000020",
+    borderRadius: 8,
+  },
+
+  floatingBtn: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+});

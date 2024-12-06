@@ -1,4 +1,5 @@
 import { FarmVersionListItem } from "@/components/home/FarmVersionListItem";
+import { API_BASE_URL } from "@/constants/api";
 import { TLaw } from "@/constants/data";
 import { useFarmData } from "@/context/farm-data-context";
 import axios from "axios";
@@ -10,12 +11,11 @@ const LawsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`http://localhost:8080/season/1/laws`);
+      const response = await axios.get(`${API_BASE_URL}/season/1/laws`);
 
       const sortedLaws = response.data.laws.sort(
         (a: TLaw, b: TLaw) => b.id - a.id
       );
-      // console.log(laws);
       setLaws(sortedLaws);
     };
 

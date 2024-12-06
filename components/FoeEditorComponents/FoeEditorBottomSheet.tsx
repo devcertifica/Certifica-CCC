@@ -1,50 +1,11 @@
-// This is the bottom sheet component for either camera or gallery in image choosing
-// src/components/BottomSheet.tsx
-import { BACKDROP_COLOR, HEIGHT, OVERDRAG } from "@/constants/constants";
 import { useFoeEditor } from "@/context/foe-editor-context";
-import { useLdeEditor } from "@/context/lde-editor-context";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
-const FoeEditorBottomSheet = () => {
-  const {
-    sheetVisible,
-    closeSheet,
-    handleAddFotoFromCamera,
-    handleAddFotoFromGallery,
-    animatedBackdropStyle,
-    animatedStyle,
-  } = useFoeEditor();
-
-  if (!sheetVisible) return null;
-
-  return (
-    <>
-      <Pressable style={styles.backdrop} onPress={closeSheet}>
-        <Animated.View style={[styles.backdrop, animatedBackdropStyle]} />
-      </Pressable>
-      <Animated.View style={[styles.sheetVisible, animatedStyle]}>
-        <Pressable
-          onPress={() => handleAddFotoFromCamera()}
-          style={styles.sheetButton}
-        >
-          <Text>Camera</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => handleAddFotoFromGallery()}
-          style={styles.sheetButton}
-        >
-          <Text>Gallery</Text>
-        </Pressable>
-        <View style={{ height: 75 }}></View>
-      </Animated.View>
-    </>
-  );
-};
+export const HEIGHT = 125;
+export const OVERDRAG = 20;
+export const BACKDROP_COLOR = "rgba(0, 0, 0, 0.3)";
 
 const styles = StyleSheet.create({
   container: {
@@ -115,5 +76,41 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 });
+
+const FoeEditorBottomSheet = () => {
+  const {
+    sheetVisible,
+    closeSheet,
+    handleAddFotoFromCamera,
+    handleAddFotoFromGallery,
+    animatedBackdropStyle,
+    animatedStyle,
+  } = useFoeEditor();
+
+  if (!sheetVisible) return null;
+
+  return (
+    <>
+      <Pressable style={styles.backdrop} onPress={closeSheet}>
+        <Animated.View style={[styles.backdrop, animatedBackdropStyle]} />
+      </Pressable>
+      <Animated.View style={[styles.sheetVisible, animatedStyle]}>
+        <Pressable
+          onPress={() => handleAddFotoFromCamera()}
+          style={styles.sheetButton}
+        >
+          <Text>Camera</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => handleAddFotoFromGallery()}
+          style={styles.sheetButton}
+        >
+          <Text>Gallery</Text>
+        </Pressable>
+        <View style={{ height: 75 }}></View>
+      </Animated.View>
+    </>
+  );
+};
 
 export default FoeEditorBottomSheet;

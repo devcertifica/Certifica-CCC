@@ -1,4 +1,5 @@
 import { FarmVersionListItem } from "@/components/home/FarmVersionListItem";
+import { API_BASE_URL } from "@/constants/api";
 import { ThemeColors } from "@/constants/Colors";
 import { TFarm } from "@/constants/data";
 import { slugify } from "@/constants/utils";
@@ -37,7 +38,7 @@ const FarmDetailsPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/farm/${farmId}/seasons`
+          `${API_BASE_URL}/farm/${farmId}/seasons`
         );
         setSeasons(response.data.seasons);
       } catch (error) {

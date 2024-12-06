@@ -8,35 +8,6 @@ import React, { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
-const audioStyles = StyleSheet.create({
-  wrapper: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  container: {
-    marginVertical: 5,
-    width: "50%",
-    marginHorizontal: 10,
-  },
-
-  playButton: {
-    paddingVertical: 10,
-    paddingLeft: 18,
-    paddingRight: 10,
-    borderRadius: 50,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#00000020",
-  },
-
-  timeContainer: {
-    flexDirection: "row",
-    paddingHorizontal: 5,
-  },
-});
 export const AddAudio = ({
   id,
   activeTabName,
@@ -152,3 +123,33 @@ export const AddAudio = ({
     </View>
   );
 };
+
+const audioStyles = StyleSheet.create({
+  wrapper: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  container: {
+    marginVertical: 5,
+    width: "50%",
+    marginHorizontal: 10,
+  },
+
+  playButton: {
+    paddingVertical: 10,
+    paddingLeft: 18,
+    paddingRight: 10,
+    borderRadius: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#00000020",
+  },
+
+  timeContainer: {
+    flexDirection: "row",
+    paddingHorizontal: 5,
+  },
+});
