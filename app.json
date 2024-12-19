@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "certifica-react-native",
     "slug": "certifica-ccc",
     "version": "1.0.0",
@@ -38,6 +39,18 @@
       ["@morrowdigital/watermelondb-expo-plugin"],
       [
         "expo-build-properties",
+        {
+          "ios": {
+            "extraPods": [
+              {
+                "name": "simdjson",
+                "configurations": ["Debug", "Release"],
+                "path": "../node_modules/@nozbe/simdjson",
+                "modular_headers": true
+              }
+            ]
+          }
+        },
         {
           "android": {
             "kotlinVersion": "1.6.10",

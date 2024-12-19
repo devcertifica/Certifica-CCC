@@ -12,6 +12,7 @@ import 'reflect-metadata';
 
 import { database } from '@/database/database';
 import Farm from '@/database/models/Farm';
+import { farmService } from '@/database/services/FarmService';
 import { Q } from '@nozbe/watermelondb';
 
 const HomePage = () => {
@@ -32,56 +33,49 @@ const HomePage = () => {
 
   const insets = useSafeAreaInsets();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/consultant/1/farms`);
-        setFilterFarm(response.data.farms);
-        setOriginFarm(response.data.farms);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`${API_BASE_URL}/consultant/1/farms`);
+  //       setFilterFarm(response.data.farms);
+  //       setOriginFarm(response.data.farms);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
+  // Add dummy farm data to the database
   const addToDatabase = async () => {
+    const dummyFarm = {
+      name: 'Dummy Farm',
+      address: '123 Farm Lane',
+    };
+
     try {
-      await database.write(async () => {
-        const farmsCollection = database.collections.get<Farm>('farms');
-
-        if (!farmsCollection) {
-          console.error('Farms collection not found');
-          return;
-        }
-
-        const newFarm = await farmsCollection.create((farm: Farm) => {
-          farm.name = 'New Farm';
-          farm.address = '1234 Farm Road';
-        });
-        console.log('New farm created:', newFarm);
-      });
+      const newFarm = await farmService.create(dummyFarm);
+      console.log('Added to database:', newFarm);
     } catch (error) {
-      console.error('Error writing to database:', error);
+      console.error('Error adding to database:', error);
     }
   };
 
+  // Fetch farms from the database
   const fetchFromDatabase = async () => {
     try {
-      const farmsCollection = database.collections.get<Farm>('farms');
+      const farms = await farmService.fetchAll();
+      console.log('Fetched from database:', farms);
 
-      if (!farmsCollection) {
-        console.error('Farms collection not found');
-        return;
-      }
-
-      const farms = await farmsCollection.query().fetch();
-      const simplifiedFarms = farms.map((farm) => ({
+      const mappedFarms: TFarm[] = farms.map((farm: any) => ({
         id: farm.id,
         name: farm.name,
         address: farm.address,
       }));
-      console.log('All farms:', simplifiedFarms);
+
+      // Update state with the mapped farms
+      setFilterFarm(mappedFarms);
+      setOriginFarm(mappedFarms);
     } catch (error) {
       console.error('Error fetching from database:', error);
     }
